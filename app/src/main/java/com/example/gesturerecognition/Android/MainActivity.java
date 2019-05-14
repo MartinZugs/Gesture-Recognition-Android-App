@@ -1,15 +1,18 @@
-package com.example.gesturerecognition;
+package com.example.gesturerecognition.Android;
 
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.sip.SipSession;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.example.gesturerecognition.Beeper;
+import com.example.gesturerecognition.R;
+import com.example.gesturerecognition.accelerometerObject;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -40,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.d(TAG, "Shucks that didn't work :/");
         }
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        // gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
     }
 
     @Override
@@ -68,17 +72,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         final float ax = event.values[0];
         final float ay = event.values[1];
         final float az = event.values[2];
-        for(int x = 0; x < event.values.length; x++)
-        {System.out.println(event.values[x]);}
+        // TODO: Create several general orientation state objects (upright, upside_down, on_back,
+        //       on_front, on_right, on_left (possibly more complex than that)), and listen for
+        //       certain motions from each state to create different sounds.
         updateView(ax, ay, az);
-        if (ax > 10.0 || ay > 10.0 || az > 10.0) {
+        if (ax > 9.0 || ay > 9.0 || az > 9.0) {
             try {
                 beeper.on();
             } catch (Exception e) {
                 Log.d(TAG, "Shucks that didn't work :/");
             }
         }
-        if (ax < 10.0 && ay < 10.0 && az < 10.0) {
+        if (ax < 9.0 && ay < 9.0 && az < 9.0) {
             System.out.println(ax + ay + az);
 
             try {
