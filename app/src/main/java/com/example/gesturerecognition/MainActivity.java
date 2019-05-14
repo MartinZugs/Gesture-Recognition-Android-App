@@ -46,9 +46,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             final TextView tvx = (TextView) findViewById(R.id.x_value);
             final TextView tvy = (TextView) findViewById(R.id.y_value);
             final TextView tvz = (TextView) findViewById(R.id.z_value);
-            tvx.setText(Float.toString(x));
-            tvy.setText(Float.toString(y));
-            tvz.setText(Float.toString(z));
+            String str_x = "X: " + Float.toString(x);
+            String str_y = "Y: " + Float.toString(y);
+            String str_z = "Z: " + Float.toString(z);
+            tvx.setText(str_x);
+            tvy.setText(str_y);
+            tvz.setText(str_z);
         });
     }
 
