@@ -24,14 +24,11 @@ public class Beeper {
     }
 
     public void on() throws Exception {
-        if(status) return;
         mediaPlayer.start();
-        mediaPlayer.setLooping(true);
         status = true;
     }
 
     public void off() throws Exception {
-        if(!status) return;
         mediaPlayer.stop();
         mediaPlayer.prepare();
         status = false;
