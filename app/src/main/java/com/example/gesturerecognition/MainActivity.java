@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.sip.SipSession;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,13 +25,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager sensorManager;
     Sensor accelerometer;
+    Sensor gyroscope;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         this.setModel(new accelerometerObject());
         try {
@@ -39,8 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.d(TAG, "Shucks that didn't work :/");
         }
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        Log.d(TAG, "onCreate: Registered accelerometer listener");
+        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
     }
 
     @Override
@@ -65,18 +65,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        final float x = event.values[0];
-        final float y = event.values[1];
-        final float z = event.values[2];
-        updateView(x, y, z);
-        if (x > 12.0 || y > 12.0 || z > 12.0) {
+        final float ax = event.values[0];
+        final float ay = event.values[1];
+        final float az = event.values[2];
+        for(int x = 0; x < event.values.length; x++)
+        {System.out.println(event.values[x]);}
+        updateView(ax, ay, az);
+        if (ax > 10.0 || ay > 10.0 || az > 10.0) {
             try {
                 beeper.on();
             } catch (Exception e) {
                 Log.d(TAG, "Shucks that didn't work :/");
             }
         }
-        if (x < 12.0 && y < 12.0 && z < 12.0) {
+        if (ax < 10.0 && ay < 10.0 && az < 10.0) {
+            System.out.println(ax + ay + az);
+
             try {
                 beeper.off();
             } catch (Exception e) {

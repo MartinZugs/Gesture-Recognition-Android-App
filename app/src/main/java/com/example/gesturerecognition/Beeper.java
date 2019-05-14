@@ -25,7 +25,6 @@ public class Beeper {
 
     public void on() throws Exception {
         mediaPlayer.start();
-        mediaPlayer.setLooping(true);
         status = true;
     }
 
