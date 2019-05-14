@@ -28,10 +28,4 @@ public class Beeper {
         mediaPlayer.start();
         status = true;
     }
-
-    public void off() throws Exception {
-        mediaPlayer.stop();
-        mediaPlayer.prepare();
-        status = false;
-    }
 }
