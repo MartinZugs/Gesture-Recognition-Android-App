@@ -21,10 +21,10 @@ public class Beeper {
     public Beeper(Activity a) throws Exception {
         activity = a;
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.beep_sound);
+        mediaPlayer.prepare();
     }
 
     public void play() throws Exception {
-        mediaPlayer.prepare();
         mediaPlayer.start();
         status = true;
     }
