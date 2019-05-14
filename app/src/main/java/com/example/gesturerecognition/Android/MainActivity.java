@@ -76,14 +76,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //       on_front, on_right, on_left (possibly more complex than that)), and listen for
         //       certain motions from each state to create different sounds.
         updateView(ax, ay, az);
-        if (ax > 9.0 || ay > 9.0 || az > 9.0) {
+        if (ax > 11.0 || ay > 11.0 || az > 11.0) {
             try {
                 beeper.on();
             } catch (Exception e) {
                 Log.d(TAG, "Shucks that didn't work :/");
             }
         }
-        if (ax < 9.0 && ay < 9.0 && az < 9.0) {
+        if (ax < 11.0 && ay < 11.0 && az < 11.0) {
             System.out.println(ax + ay + az);
 
             try {
