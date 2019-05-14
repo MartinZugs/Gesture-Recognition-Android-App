@@ -71,14 +71,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         updateView(x, y, z);
         if (x > 12.0 || y > 12.0 || z > 12.0) {
             try {
-                beeper.on();
-            } catch (Exception e) {
-                Log.d(TAG, "Shucks that didn't work :/");
-            }
-        }
-        if (x < 12.0 && y < 12.0 && z < 12.0) {
-            try {
-                beeper.off();
+                beeper.play();
             } catch (Exception e) {
                 Log.d(TAG, "Shucks that didn't work :/");
             }

@@ -23,14 +23,8 @@ public class Beeper {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.beep_sound);
     }
 
-    public void on() throws Exception {
+    public void play() throws Exception {
         mediaPlayer.start();
         status = true;
-    }
-
-    public void off() throws Exception {
-        mediaPlayer.stop();
-        mediaPlayer.prepare();
-        status = false;
     }
 }
