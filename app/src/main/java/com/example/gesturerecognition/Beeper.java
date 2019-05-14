@@ -20,7 +20,7 @@ public class Beeper {
 
     public Beeper(Activity a) throws Exception {
         activity = a;
-        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.beep_sound);
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hello_bitch);
     }
 
     public void on() throws Exception {
