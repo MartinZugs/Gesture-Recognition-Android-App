@@ -10,8 +10,6 @@ import com.example.gesturerecognition.R;
 
 public class Beeper {
 
-    private static AudioStream audioStream;
-
     private static MediaPlayer mediaPlayer;
 
     // current status of clip
@@ -25,16 +23,17 @@ public class Beeper {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.beep_sound);
     }
 
+    public void on() throws Exception {
+        if(status) return;
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
+        status = true;
+    }
 
-    public void toggle() throws Exception{
-        if(status) {
-            mediaPlayer.stop();
-            mediaPlayer.prepare();
-            status = false;
-        } else {
-            mediaPlayer.start();
-            mediaPlayer.setLooping(true);
-            status = true;
-        }
+    public void off() throws Exception {
+        if(!status) return;
+        mediaPlayer.stop();
+        mediaPlayer.prepare();
+        status = false;
     }
 }

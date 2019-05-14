@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private static final String TAG = "MainActivity";
 
+    private Beeper beeper;
+    protected void setBeeper(final Beeper beeper) { this.beeper = beeper; }
+
     private accelerometerObject model;
     protected void setModel(final accelerometerObject model) {
         this.model = model;
@@ -30,6 +33,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         this.setModel(new accelerometerObject());
+        try {
+            this.setBeeper(new Beeper(this));
+        } catch (Exception e) {
+            Log.d(TAG, "Shucks that didn't work :/");
+        }
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         Log.d(TAG, "onCreate: Registered accelerometer listener");
@@ -57,6 +65,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        updateView(event.values[0], event.values[1], event.values[2]);
+        final float x = event.values[0];
+        final float y = event.values[1];
+        final float z = event.values[2];
+        updateView(x, y, z);
+        if (x > 12.0 || y > 12.0 || z > 12.0) {
+            try {
+                beeper.on();
+            } catch (Exception e) {
+                Log.d(TAG, "Shucks that didn't work :/");
+            }
+        }
+        if (x < 12.0 && y < 12.0 && z < 12.0) {
+            try {
+                beeper.off();
+            } catch (Exception e) {
+                Log.d(TAG, "Shucks that didn't work :/");
+            }
+        }
     }
 }
