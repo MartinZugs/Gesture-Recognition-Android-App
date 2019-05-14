@@ -13,6 +13,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private static final String TAG = "MainActivity";
 
+    private accelerometerObject model;
+    protected void setModel(final accelerometerObject model) {
+        this.model = model;
+    }
+
     private SensorManager sensorManager;
     Sensor accelerometer;
 
@@ -23,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
+        this.setModel(new accelerometerObject());
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         Log.d(TAG, "onCreate: Registered accelerometer listener");
