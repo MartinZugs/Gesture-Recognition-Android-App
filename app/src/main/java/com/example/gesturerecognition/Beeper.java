@@ -14,33 +14,37 @@ public class Beeper {
         activity = a;
     }
 
-    public void bye() {
+    public void sayBye() {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye_peasants);
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                mediaPlayer.stop();
-            }
-        });
         mediaPlayer.start();
+        setListener();
     }
 
-    public void hello() {
+    public void sayHello() {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey_yall);
+        mediaPlayer.start();
+        setListener();
+    }
+
+    public void sayNo() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.no);
+        mediaPlayer.start();
+        setListener();
+    }
+
+    private void setListener() {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.stop();
             }
         });
-        mediaPlayer.start();
     }
 
     public boolean isPlaying() {
         if (mediaPlayer != null) {
             return mediaPlayer.isPlaying();
-        } else {
-            return false;
         }
+        return false;
     }
 }
