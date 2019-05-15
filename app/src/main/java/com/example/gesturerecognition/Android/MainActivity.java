@@ -17,6 +17,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Beeper beeper;
     protected void setBeeper(final Beeper beeper) { this.beeper = beeper; }
 
+<<<<<<< HEAD
+=======
+    private accelerometerObject model;
+    protected void setModel(final accelerometerObject model) { this.model = model; }
+
+>>>>>>> 1d9189142e751a625fbf9aa79dbacf86003e83d2
     private SensorManager sensorManager;
     Sensor accelerometer;
 
@@ -28,14 +34,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
+<<<<<<< HEAD
+=======
+        this.setModel(new accelerometerObject());
+        try {
+            this.setBeeper(new Beeper(this));
+        } catch (Exception e) {}
+>>>>>>> 1d9189142e751a625fbf9aa79dbacf86003e83d2
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     public void updateView(final float x, final float y, final float z) {
         // UI adapter responsibility to schedule incoming events on UI thread
@@ -64,19 +75,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if ((ax > 3.0 || ax < -3.0) && !(beeper.isPlaying())) {
             try {
                 beeper.hello();
-
-            } catch (Exception e) {
-            }
+            } catch (Exception e) {}
         }
+<<<<<<< HEAD
         else if ((az > 3.0 || az < -3.0) && !(beeper.isPlaying()))
         {
+=======
+        else if ((az > 2.0 || az < -2.0) && !(beeper.isPlaying())) {
+>>>>>>> 1d9189142e751a625fbf9aa79dbacf86003e83d2
             try{
                 beeper.bye();
-
-            }   catch (Exception e)
-            {
-
-            }
+            }   catch (Exception e) {}
         }
     }
 }
