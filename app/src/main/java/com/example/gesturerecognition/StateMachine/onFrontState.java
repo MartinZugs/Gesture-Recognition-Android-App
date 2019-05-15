@@ -1,23 +1,23 @@
 package com.example.gesturerecognition.StateMachine;
 
-public class onBackState implements State {
+public class onFrontState implements State {
 
     private StateMachine sm;
 
-    public onBackState(final StateMachine sm) { this.sm = sm; }
+    public onFrontState(final StateMachine sm) { this.sm = sm; }
 
     @Override
     public void x_move() {
-        sm.getBeeper().sayIDC();
+        sm.getBeeper().sayNo();
     }
 
     @Override
     public void y_move() {
-        sm.getBeeper().sayHereUGo();
+        sm.getBeeper().sayThatOne();
     }
 
     @Override
     public void z_move() {
-        sm.getBeeper().sayIDK();
+        sm.getBeeper().sayComeHere();
     }
 }

@@ -110,12 +110,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }*/
 
-        if(gz > 8.0 || gz < -8.0)
-        {
+        if(gz > 8.0) {
             sm.toBack();
         }
-        else if(gy > 8.0 || gy < -8.0)
-        {
+        else if(gz < -8.0) {
+            sm.toFront();
+        }
+        else if(gy > 8.0 || gy < -8.0) {
             sm.toUpright();
         }
         checkMotion(ax, ay, az);

@@ -50,6 +50,24 @@ public class Beeper {
         mediaPlayer.start();
     }
 
+    public void sayComeHere() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.come_here);
+        setListener();
+        mediaPlayer.start();
+    }
+
+    public void sayHereUGo() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.here_u_go);
+        setListener();
+        mediaPlayer.start();
+    }
+
+    public void sayIDC() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.Idc);
+        setListener();
+        mediaPlayer.start();
+    }
+
     private void setListener() {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
