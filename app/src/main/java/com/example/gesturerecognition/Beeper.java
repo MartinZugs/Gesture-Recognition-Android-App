@@ -20,13 +20,27 @@ public class Beeper {
     }
 
     public void bye() {
-        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye_peasants);
-        mediaPlayer.start();
+        if (mediaPlayer.isPlaying())
+        {
+            return;
+        }
+        else
+        {
+            mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye_peasants);
+            mediaPlayer.start();
+        }
     }
 
     public void hello() {
-        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey_yall);
-        mediaPlayer.start();
+        if (mediaPlayer.isPlaying())
+        {
+            return;
+        }
+        else
+        {
+            mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey_yall);
+            mediaPlayer.start();
+        }
     }
 
     public void off() throws Exception {
