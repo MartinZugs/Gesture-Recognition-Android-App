@@ -14,6 +14,8 @@ import com.example.gesturerecognition.Beeper;
 import com.example.gesturerecognition.R;
 import com.example.gesturerecognition.accelerometerObject;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "MainActivity";
@@ -42,9 +44,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } catch (Exception e) {
             Log.d(TAG, "Shucks that didn't work :/");
         }
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        // gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
     }
 
     @Override
@@ -76,25 +77,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //       on_front, on_right, on_left (possibly more complex than that)), and listen for
         //       certain motions from each state to create different sounds.
         updateView(ax, ay, az);
-        if ((ax > 3.0 || ax < -3.0) && ay > 7.0) {
+        if (ax > 2.0 || ax < -2.0) {
             try {
                 beeper.hello();
+
             } catch (Exception e) {
                 Log.d(TAG, "Shucks that didn't work :/");
             }
         }
-        else if (ay > 7.0 && (az > 3.0 || az < -3.0))
+        else if (az > 2.0 || az < -2.0)
         {
             try{
                 beeper.bye();
+
             }   catch (Exception e)
             {
                 Log.d(TAG,"Shucks that didn't work :/");
             }
         }
-        if (ax < 11.0 && ay < 11.0 && az < 11.0) {
-            System.out.println(ax + ay + az);
-
+        else //(ax < 11.0 && ay < 11.0 && az < 11.0) {
             try {
                 beeper.off();
             } catch (Exception e) {
@@ -102,4 +103,3 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }
     }
-}
