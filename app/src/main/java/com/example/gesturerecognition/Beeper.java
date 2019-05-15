@@ -63,7 +63,7 @@ public class Beeper {
     }
 
     public void sayIDC() {
-        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.Idc);
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.idc);
         setListener();
         mediaPlayer.start();
     }
