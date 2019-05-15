@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.net.rtp.AudioStream;
 
 import android.media.MediaPlayer;
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
 
 import com.example.gesturerecognition.R;
 
@@ -24,6 +28,12 @@ public class Beeper {
         if (mediaPlayer.isPlaying()) return;
         else {
             mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye_peasants);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.stop();
+                }
+            });
             mediaPlayer.start();
         }
     }
@@ -32,6 +42,12 @@ public class Beeper {
         if (mediaPlayer.isPlaying()) return;
         else {
             mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey_yall);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.stop();
+                }
+            });
             mediaPlayer.start();
         }
     }
