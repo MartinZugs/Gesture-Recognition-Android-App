@@ -94,11 +94,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         updateView(ax, ay, az, gx, gy, gz);
 
-        if(gz > 8.0)
+        if(gz > 8.0 || gz < -8.0)
         {
             sm.toBack();
         }
-        else if(gy > 8.0)
+        else if(gy > 8.0 || gy < -8.0)
         {
             sm.toUpright();
         }
@@ -107,13 +107,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 3.0 || ax < -3.0) && !(sm.getBeeper().isPlaying())) {
+        if ((ax > 4.0 || ax < -4.0) && !(sm.getBeeper().isPlaying())) {
             sm.x_move();
         }
-        else if ((az > 3.0 || az < -3.0) && !(sm.getBeeper().isPlaying())) {
+        else if ((az > 4.0 || az < -4.0) && !(sm.getBeeper().isPlaying())) {
             sm.z_move();
         }
-        else if ((ay > 3.0 || ay < -3.0) && !(sm.getBeeper().isPlaying())) {
+        else if ((ay > 4.0 || ay < -4.0) && !(sm.getBeeper().isPlaying())) {
             sm.y_move();
         }
     }
