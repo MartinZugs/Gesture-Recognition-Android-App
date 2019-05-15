@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    compileSdkVersion 20
     compileSdkVersion 'android-Q'
     defaultConfig {
         applicationId "com.example.gesturerecognition"
@@ -20,7 +21,7 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    buildToolsVersion = '28.0.3'
+    buildToolsVersion = '29.0.0 rc3'
 }
 
 dependencies {
