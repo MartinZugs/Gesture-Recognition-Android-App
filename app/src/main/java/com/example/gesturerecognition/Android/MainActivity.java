@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Log.d(TAG,"Shucks that didn't work :/");
             }
         }
-        /*else //(ax < 11.0 && ay < 11.0 && az < 11.0) {
+        /*else if (beeper.isPlaying()) //(ax < 11.0 && ay < 11.0 && az < 11.0) {
             try {
                 beeper.off();
             } catch (Exception e) {
