@@ -30,19 +30,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager sensorManager;
     Sensor accelerometer;
-    Sensor gyroscope;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         this.setModel(new accelerometerObject());
         try {
             this.setBeeper(new Beeper(this));
         } catch (Exception e) {
-            Log.d(TAG, "Shucks that didn't work :/");
         }
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -77,30 +77,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //       on_front, on_right, on_left (possibly more complex than that)), and listen for
         //       certain motions from each state to create different sounds.
         updateView(ax, ay, az);
-        if (ax > 2.0 || ax < -2.0) {
+        if ((ax > 2.0 || ax < -2.0) && !(beeper.isPlaying())) {
             try {
                 beeper.hello();
 
             } catch (Exception e) {
-                Log.d(TAG, "Shucks that didn't work :/");
             }
         }
-        else if (az > 2.0 || az < -2.0)
+        else if ((az > 2.0 || az < -2.0) && !(beeper.isPlaying()))
         {
             try{
                 beeper.bye();
 
             }   catch (Exception e)
             {
-                Log.d(TAG,"Shucks that didn't work :/");
+
             }
         }
-        /*else if (beeper.isPlaying()) //(ax < 11.0 && ay < 11.0 && az < 11.0) {
-            try {
-                beeper.off();
-            } catch (Exception e) {
-                Log.d(TAG, "Shucks that didn't work :/");
-            }
-        }*/
     }
 }
