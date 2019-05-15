@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void updateView(final float x, final float y, final float z) {
         // UI adapter responsibility to schedule incoming events on UI thread
         runOnUiThread(() -> {
-            final TextView tvx = (TextView) this.findViewById(R.id.x_value);
+            final TextView tvx = (TextView) findViewById(R.id.x_value);
             final TextView tvy = (TextView) findViewById(R.id.y_value);
             final TextView tvz = (TextView) findViewById(R.id.z_value);
             String str_x = "X: " + Float.toString(x);
