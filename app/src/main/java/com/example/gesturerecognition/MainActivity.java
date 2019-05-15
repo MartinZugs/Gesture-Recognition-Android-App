@@ -9,10 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.gesturerecognition.StateMachine.StateMachine;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private Beeper beeper;
     protected void setBeeper(final Beeper beeper) { this.beeper = beeper; }
+
+    private StateMachine sm;
 
     private SensorManager sensorManager;
     Sensor linear_accelaration;
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        sm = new StateMachine(this);
 
         try {
             this.setBeeper(new Beeper(this));
@@ -88,15 +94,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         updateView(ax, ay, az, gx, gy, gz);
 
-        /*if ((ax > 3.0 || ax < -3.0) && !(beeper.isPlaying())) {
-            try {
-                beeper.hello();
-            } catch (Exception e) {}
+        if(gz > 8.0)
+        {
+            sm.toBack();
         }
-        else if ((az > 2.0 || az < -2.0) && !(beeper.isPlaying())) {
-            try{
-                beeper.bye();
-            }   catch (Exception e) {}
-        }*/
+        else if(gy > 8.0)
+        {
+            sm.toUpright();
+        }
+        checkMotion(ax, ay, az);
+    }
+
+    public void checkMotion (final float ax, final float ay, final float az)
+    {
+        if ((ax > 3.0 || ax < -3.0) && !(sm.getBeeper().isPlaying())) {
+            sm.x_move();
+        }
+        else if ((az > 3.0 || az < -3.0) && !(sm.getBeeper().isPlaying())) {
+            sm.z_move();
+        }
+        else if ((ay > 3.0 || ay < -3.0) && !(sm.getBeeper().isPlaying())) {
+            sm.y_move();
+        }
     }
 }

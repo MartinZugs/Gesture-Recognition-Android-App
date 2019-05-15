@@ -16,20 +16,20 @@ public class Beeper {
 
     public void sayBye() {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye_peasants);
-        mediaPlayer.start();
         setListener();
+        mediaPlayer.start();
     }
 
     public void sayHello() {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey_yall);
-        mediaPlayer.start();
         setListener();
+        mediaPlayer.start();
     }
 
     public void sayNo() {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.no);
-        mediaPlayer.start();
         setListener();
+        mediaPlayer.start();
     }
 
     private void setListener() {

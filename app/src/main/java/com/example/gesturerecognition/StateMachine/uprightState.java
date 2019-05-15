@@ -13,7 +13,7 @@ public class uprightState implements State {
 
     @Override
     public void y_move() {
-        sm.getBeeper().sayTrain();
+        //sm.getBeeper().sayTrain();
     }
 
     @Override
