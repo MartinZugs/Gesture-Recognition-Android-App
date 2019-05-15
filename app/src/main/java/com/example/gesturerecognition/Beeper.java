@@ -22,7 +22,8 @@ public class Beeper {
     public void bye() {
         if (mediaPlayer.isPlaying())
         {
-            return;
+            mediaPlayer.stop();
+            mediaPlayer.reset();
         }
         else
         {
@@ -34,7 +35,8 @@ public class Beeper {
     public void hello() {
         if (mediaPlayer.isPlaying())
         {
-            return;
+            mediaPlayer.stop();
+            mediaPlayer.reset();
         }
         else
         {
@@ -43,8 +45,8 @@ public class Beeper {
         }
     }
 
-    public void off() throws Exception {
+    /*public void off() throws Exception {
         mediaPlayer.stop();
         mediaPlayer.prepare();
-    }
+    }*/
 }
