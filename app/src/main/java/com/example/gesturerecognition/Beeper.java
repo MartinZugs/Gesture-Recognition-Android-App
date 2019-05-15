@@ -12,25 +12,25 @@ public class Beeper {
 
     private static MediaPlayer mediaPlayer;
 
-    // current status of clip
-    boolean status = false;
-
     //allows usage of getApplicationContext()
     private Activity activity;
 
     public Beeper(Activity a) throws Exception {
         activity = a;
-        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hello_bitch);
     }
 
-    public void on() throws Exception {
+    public void bye() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye_peasants);
         mediaPlayer.start();
-        status = true;
+    }
+
+    public void hello() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey_yall);
+        mediaPlayer.start();
     }
 
     public void off() throws Exception {
         mediaPlayer.stop();
         mediaPlayer.prepare();
-        status = false;
     }
 }
