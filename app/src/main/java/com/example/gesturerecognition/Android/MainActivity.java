@@ -7,26 +7,15 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.example.gesturerecognition.Beeper;
 import com.example.gesturerecognition.R;
-import com.example.gesturerecognition.accelerometerObject;
-
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private static final String TAG = "MainActivity";
-
     private Beeper beeper;
     protected void setBeeper(final Beeper beeper) { this.beeper = beeper; }
-
-    private accelerometerObject model;
-    protected void setModel(final accelerometerObject model) {
-        this.model = model;
-    }
 
     private SensorManager sensorManager;
     Sensor accelerometer;
@@ -39,11 +28,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        this.setModel(new accelerometerObject());
-        try {
-            this.setBeeper(new Beeper(this));
-        } catch (Exception e) {
-        }
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -77,14 +61,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //       on_front, on_right, on_left (possibly more complex than that)), and listen for
         //       certain motions from each state to create different sounds.
         updateView(ax, ay, az);
-        if ((ax > 2.0 || ax < -2.0) && !(beeper.isPlaying())) {
+        if ((ax > 3.0 || ax < -3.0) && !(beeper.isPlaying())) {
             try {
                 beeper.hello();
 
             } catch (Exception e) {
             }
         }
-        else if ((az > 2.0 || az < -2.0) && !(beeper.isPlaying()))
+        else if ((az > 3.0 || az < -3.0) && !(beeper.isPlaying()))
         {
             try{
                 beeper.bye();
