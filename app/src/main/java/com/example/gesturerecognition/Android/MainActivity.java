@@ -24,9 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void setBeeper(final Beeper beeper) { this.beeper = beeper; }
 
     private accelerometerObject model;
-    protected void setModel(final accelerometerObject model) {
-        this.model = model;
-    }
+    protected void setModel(final accelerometerObject model) { this.model = model; }
 
     private SensorManager sensorManager;
     Sensor accelerometer;
@@ -42,16 +40,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.setModel(new accelerometerObject());
         try {
             this.setBeeper(new Beeper(this));
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     public void updateView(final float x, final float y, final float z) {
         // UI adapter responsibility to schedule incoming events on UI thread
@@ -80,19 +75,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if ((ax > 2.0 || ax < -2.0) && !(beeper.isPlaying())) {
             try {
                 beeper.hello();
-
-            } catch (Exception e) {
-            }
+            } catch (Exception e) {}
         }
-        else if ((az > 2.0 || az < -2.0) && !(beeper.isPlaying()))
-        {
+        else if ((az > 2.0 || az < -2.0) && !(beeper.isPlaying())) {
             try{
                 beeper.bye();
-
-            }   catch (Exception e)
-            {
-
-            }
+            }   catch (Exception e) {}
         }
     }
 }
