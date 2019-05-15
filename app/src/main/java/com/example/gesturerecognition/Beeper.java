@@ -11,6 +11,8 @@ import com.example.gesturerecognition.R;
 public class Beeper {
 
     private static MediaPlayer mediaPlayer;
+
+
     //allows usage of getApplicationContext()
     private Activity activity;
 
