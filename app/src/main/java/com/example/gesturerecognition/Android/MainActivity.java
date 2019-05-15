@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else if ((az > 2.0 || az < -2.0) && !(beeper.isPlaying())) {
             try{
                 beeper.bye();
-            }   catch (Exception e) {}
+            } catch (Exception e) {}
         }
     }
 }
