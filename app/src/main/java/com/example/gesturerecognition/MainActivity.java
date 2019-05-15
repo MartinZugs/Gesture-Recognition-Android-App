@@ -13,14 +13,12 @@ import com.example.gesturerecognition.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private Beeper beeper;
-    protected void setBeeper(final Beeper beeper) { this.beeper = beeper; }
-
     private StateMachine sm;
 
     private SensorManager sensorManager;
     Sensor linear_accelaration;
     Sensor gravity;
+
     float ax = 0;
     float ay = 0;
     float az = 0;
@@ -34,13 +32,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
         sm = new StateMachine(this);
 
-        try {
-            this.setBeeper(new Beeper(this));
-        } catch (Exception e) {}
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         linear_accelaration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
@@ -87,10 +81,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             gy = event.values[1];
             gz = event.values[2];
         }
-
-        // TODO: Create several general orientation state objects (upright, upside_down, on_back,
-        //       on_front, on_right, on_left (possibly more complex than that)), and listen for
-        //       certain motions from each state to create different sounds.
 
         updateView(ax, ay, az, gx, gy, gz);
 
