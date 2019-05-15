@@ -15,13 +15,13 @@ public class Beeper {
     }
 
     public void sayBye() {
-        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye_peasants);
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.bye);
         mediaPlayer.start();
         setListener();
     }
 
     public void sayHello() {
-        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey_yall);
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.hey);
         mediaPlayer.start();
         setListener();
     }
@@ -30,6 +30,10 @@ public class Beeper {
         mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.no);
         mediaPlayer.start();
         setListener();
+    }
+
+    public void sayThatOne() {
+
     }
 
     private void setListener() {
