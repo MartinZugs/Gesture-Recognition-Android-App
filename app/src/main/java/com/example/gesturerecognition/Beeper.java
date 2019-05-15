@@ -33,7 +33,21 @@ public class Beeper {
     }
 
     public void sayThatOne() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.that_one);
+        setListener();
+        mediaPlayer.start();
+    }
 
+    public void sayHere() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.here);
+        setListener();
+        mediaPlayer.start();
+    }
+
+    public void sayYes() {
+        mediaPlayer = MediaPlayer.create(activity.getBaseContext(), R.raw.yes);
+        setListener();
+        mediaPlayer.start();
     }
 
     private void setListener() {

@@ -13,11 +13,11 @@ public class onBackState implements State {
 
     @Override
     public void y_move() {
-        //sm.getBeeper().sayThatOne();
+        sm.getBeeper().sayThatOne();
     }
 
     @Override
     public void z_move() {
-        //sm.getBeeper().sayHere();
+        sm.getBeeper().sayHere();
     }
 }
