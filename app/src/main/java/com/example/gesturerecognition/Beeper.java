@@ -1,17 +1,22 @@
 package com.example.gesturerecognition;
+import android.speech.tts.TextToSpeech;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
 
+import java.io.IOException;
+
 public class Beeper {
 
     private static MediaPlayer mediaPlayer;
+    private TextToSpeech tts;
 
     //allows usage of getApplicationContext()
     private MainActivity activity;
 
     public Beeper(MainActivity a) throws Exception {
         activity = a;
+        tts = new TextToSpeech(a, (TextToSpeech.OnInitListener)a);
     }
 
     public void sayBye() {
