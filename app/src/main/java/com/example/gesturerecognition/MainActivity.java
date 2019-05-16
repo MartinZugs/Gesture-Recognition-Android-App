@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Button b = (Button)findViewById(R.id.OnOff);
         if(isOn) {
             isOn = false;
-            b.setText("On");
+            b.setText("Off");
         }
         else {
             isOn = true;
-            b.setText("Off");
+            b.setText("On");
         }
     }
 
