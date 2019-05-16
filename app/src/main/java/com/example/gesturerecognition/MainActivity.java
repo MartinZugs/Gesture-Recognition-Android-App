@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if(gyx > .5 || gyz > .5 || gyy > .5 || gyx < -.5 || gyz < -.5 || gyy < -.5)
         {
-            sm.toTransition();
+            sm.toOff();
         }
         checkMotion(ax, ay, az);
     }

@@ -1,10 +1,10 @@
 package com.example.gesturerecognition.StateMachine;
 
-public class transitionState implements State{
+public class offState implements State{
 
         private StateMachine sm;
 
-        public transitionState(final StateMachine sm) { this.sm = sm; }
+        public offState(final StateMachine sm) { this.sm = sm; }
 
         @Override
         public void x_move() {
