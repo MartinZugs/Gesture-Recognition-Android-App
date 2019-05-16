@@ -124,13 +124,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 4.0 || ax < -4.0) && !(sm.getBeeper().isPlaying())) {
+        if ((ax > 4.0 || ax < -4.0) && !(sm.getBeeper().isPlaying()) && (ax > ay) && (ax > az)) {
             sm.x_move();
         }
-        else if ((az > 4.0 || az < -4.0) && !(sm.getBeeper().isPlaying())) {
+        else if ((az > 4.0 || az < -4.0) && !(sm.getBeeper().isPlaying()) && (ax > ay) && (ax > az)) {
             sm.z_move();
         }
-        else if ((ay > 4.0 || ay < -4.0) && !(sm.getBeeper().isPlaying())) {
+        else if ((ay > 4.0 || ay < -4.0) && !(sm.getBeeper().isPlaying()) && (ax > ay) && (ax > az)) {
             sm.y_move();
         }
     }
