@@ -7,17 +7,16 @@
     tools:context=".MainActivity">
 
     <Button
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/OnOff"
         android:layout_width="257dp"
         android:layout_height="163dp"
+        android:layout_marginBottom="316dp"
         android:onClick="toggleOnOff"
         android:text="On"
         android:textSize="100px"
-        android:id="@+id/OnOff"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="94dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <!--TextView
         android:id="@+id/x_value"
