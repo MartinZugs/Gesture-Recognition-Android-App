@@ -89,18 +89,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         {
             sm.toOff();
         }
-        checkMotion(ax, ay, az);
+        if(isOn) checkMotion(ax, ay, az);
     }
 
     public void toggleOnOff(View v) {
         Button b = (Button)findViewById(R.id.OnOff);
         if(isOn) {
             isOn = false;
-            b.setText("Off");
+            b.setText("On");
         }
         else {
             isOn = true;
-            b.setText("On");
+            b.setText("Off");
         }
     }
 
