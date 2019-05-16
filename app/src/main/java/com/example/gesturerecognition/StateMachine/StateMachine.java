@@ -11,6 +11,7 @@ public class StateMachine {
     private State ONFRONT = new onFrontState(this);
     private State UPRIGHT = new uprightState(this);
     private State OFF = new offState(this);
+    private boolean firstStage = false;
 
     private Beeper beeper;
 
@@ -22,6 +23,10 @@ public class StateMachine {
     public void toFront() { this.state = ONFRONT; }
     public void toUpright() { this.state = UPRIGHT; }
     public void toOff() { this.state = OFF; }
+
+    public boolean firstStage() { return firstStage; }
+    public void setFirstStageTrue() { firstStage = true; }
+    public void setFirstStageFalse() { firstStage = false; }
 
     public void x_move() { this.state.x_move(); }
     public void y_move() { this.state.y_move(); }
