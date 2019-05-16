@@ -8,9 +8,9 @@ public class Beeper {
     private static MediaPlayer mediaPlayer;
 
     //allows usage of getApplicationContext()
-    private Activity activity;
+    private MainActivity activity;
 
-    public Beeper(Activity a) throws Exception {
+    public Beeper(MainActivity a) throws Exception {
         activity = a;
     }
 

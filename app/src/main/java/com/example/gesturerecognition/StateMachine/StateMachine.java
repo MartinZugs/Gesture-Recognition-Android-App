@@ -1,31 +1,38 @@
 package com.example.gesturerecognition.StateMachine;
 
 import com.example.gesturerecognition.Beeper;
+import com.example.gesturerecognition.MainActivity;
+
 import android.app.Activity;
 
 public class StateMachine {
 
+    private MainActivity a;
+
     private State state;
 
-    private State ONBACK = new onBackState(this);
-    private State ONFRONT = new onFrontState(this);
-    private State UPRIGHT = new uprightState(this);
-    private State OFF = new offState(this);
+    private State ONBACK;
+    private State ONFRONT;
+    private State UPRIGHT;
 
     private Beeper beeper;
 
-    public StateMachine(Activity a) {
-        try { beeper = new Beeper(a); } catch(Exception e) {}
+    public StateMachine(MainActivity a) {
+        this.a = a;
+        try { beeper = new Beeper(this.a); } catch(Exception e) {}
+        ONBACK = new onBackState(this);
+        ONFRONT = new onFrontState(this);
+        UPRIGHT = new uprightState(this);
     }
 
     public void toBack() { this.state = ONBACK; }
     public void toFront() { this.state = ONFRONT; }
     public void toUpright() { this.state = UPRIGHT; }
-    public void toOff() { this.state = OFF; }
 
     public void x_move() { this.state.x_move(); }
     public void y_move() { this.state.y_move(); }
     public void z_move() { this.state.z_move(); }
 
     public Beeper getBeeper() { return this.beeper; }
+    public MainActivity getActivity() { return this.a; }
 }

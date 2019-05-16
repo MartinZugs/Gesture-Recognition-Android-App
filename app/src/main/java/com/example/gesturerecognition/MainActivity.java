@@ -15,40 +15,39 @@ import com.example.gesturerecognition.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+    // A state machine to call each of the motion functions
     private StateMachine sm;
 
+    // Instantiate a sensorManager service to handle each sensor
     private SensorManager sensorManager;
-    Sensor linear_accelaration;
-    Sensor gravity;
-    Sensor gyro;
+    private Sensor linear_acceleration, gravity, gyro;
 
+    // isOn toggles whether the user wants to read their data currently or not.
+    // Triggered by a button push
     private boolean isOn = true;
-
-    private float ax = 0;
-    private float ay = 0;
-    private float az = 0;
-    private float gx = 0;
-    private float gy = 0;
-    private float gz = 0;
-    private float gyx = 0;
-    private float gyy = 0;
-    private float gyz = 0;
+    // x, y, and z are changed with every event call on the sensors, and they change dynamically
+    // to do different functions based on the current event call
+    // they will either be accelerometer readings, gravity readings, or gyroscope readings
+    private float x = 0;
+    private float y = 0;
+    private float z = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        // Typical android setup stuff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sm = new StateMachine(this);
+        // Instantiate the StateMachine
+        sm = new StateMachine((MainActivity)this);
 
+        // Instantiate and register each sensor variable to each of it's
+        // corresponding hardware sensors
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-        linear_accelaration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        linear_acceleration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-
-        sensorManager.registerListener(MainActivity.this, linear_accelaration, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(MainActivity.this, linear_acceleration, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(MainActivity.this, gravity, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(MainActivity.this, gyro, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -59,37 +58,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
-            ax = event.values[0];
-            ay = event.values[1];
-            az = event.values[2];
-        } else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
-            gx = event.values[0];
-            gy = event.values[1];
-            gz = event.values[2];
-        }
+        // If the sensor event was triggered by the accelerator, call checkMotion to play with it
+        if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
+            checkMotion(event.values[0], event.values[1], event.values[2]);
+        } // Else, if it was a gravity event, check for the orientation
+          // and change the state accordingly
+        else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
+            x = event.values[0];
+            y = event.values[1];
+            z = event.values[2];
+            if(z > 8.0 && z > y && z > x) {
+                sm.toBack();
+            }
+            else if(z < -8.0 && z < y && z < x) {
+                sm.toFront();
+            }
+            else if(y > 8.0 && y > z && y > z) {
+                sm.toUpright();
+            }
+        } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            gyx = event.values[0];
-            gyy = event.values[1];
-            gyz = event.values[2];
+            x = event.values[0];
+            y = event.values[1];
+            z = event.values[2];
+            if(x > .5 || z > .5 || y > .5 || x < -.5 || z < -.5 || y < -.5) {
+                isOn = false;
+            } else isOn = true;
         }
-
-
-        if(gz > 8.0 && gz > gy && gz > gx) {
-            sm.toBack();
-        }
-        else if(gz < -8.0 && gz < gy && gz < gx) {
-            sm.toFront();
-        }
-        else if(gy > 8.0 && gy > gz && gy > gz) {
-            sm.toUpright();
-        }
-
-        if(gyx > .5 || gyz > .5 || gyy > .5 || gyx < -.5 || gyz < -.5 || gyy < -.5)
-        {
-            sm.toOff();
-        }
-        if(isOn) checkMotion(ax, ay, az);
     }
 
     public void toggleOnOff(View v) {
@@ -117,8 +112,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    public void CreateNewMotion(View v) {
+
+    }
+
+    public TextView getLastMotion() {
+        return findViewById(R.id.lastMotion);
+    }
+
     @Override
-    public void onStop(){
+    public void onPause(){
+        super.onPause();
         super.onStop();
         finish();
     }
