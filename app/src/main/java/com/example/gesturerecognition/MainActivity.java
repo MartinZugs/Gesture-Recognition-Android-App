@@ -105,33 +105,40 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         updateView(ax, ay, az, gx, gy, gz, gyx, gyy, gyz);
 
-        /*if(gyx > 2 || gyy > 2 || gyz > 2)
-        {
-            return;
-        }*/
 
-        if(gz > 8.0) {
+        if(gz > 8.0 && gz > gy && gz > gx) {
             sm.toBack();
         }
-        else if(gz < -8.0) {
+        else if(gz < -8.0 && gz < gy && gz < gx) {
             sm.toFront();
         }
-        else if(gy > 8.0 || gy < -8.0) {
+        else if(gy > 8.0 && gy > gz && gy > gz) {
             sm.toUpright();
+        }
+
+        if(gyx > .5 || gyz > .5 || gyy > .5 || gyx < -.5 || gyz < -.5 || gyy < -.5)
+        {
+            sm.toTransition();
         }
         checkMotion(ax, ay, az);
     }
 
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 4.0 || ax < -4.0) && !(sm.getBeeper().isPlaying()) && (ax > ay) && (ax > az)) {
+        if ((ax > 2.5 || ax < -2.5) && !(sm.getBeeper().isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
             sm.x_move();
         }
-        else if ((az > 4.0 || az < -4.0) && !(sm.getBeeper().isPlaying()) && (az > ay) && (az > ax)) {
+        else if ((az > 2.5 || az < -2.5) && !(sm.getBeeper().isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
             sm.z_move();
         }
-        else if ((ay > 4.0 || ay < -4.0) && !(sm.getBeeper().isPlaying()) && (ay > ax) && (ay > az)) {
+        else if ((ay > 2.5 || ay < -2.5) && !(sm.getBeeper().isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
             sm.y_move();
         }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        finish();
     }
 }
