@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sm.toUpright();
         }
 
-        if(gyx > .5 || gyz > .5 || gyy > .5 || gyx < -.5 || gyz < -.5 || gyy < -.5)
+        /*if(gyx > .5 || gyz > .5 || gyy > .5 || gyx < -.5 || gyz < -.5 || gyy < -.5)
         {
             sm.toOff();
-        }
+        }*/
         if(isOn) checkMotion(ax, ay, az);
     }
 
@@ -107,21 +107,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void checkMotion (final float ax, final float ay, final float az)
     {
         if ((ax > 3 || ax < -3) && !(sm.getBeeper().isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
-
             sm.x_move();
-
         }
 
         else if ((az > 3 || az < -3) && !(sm.getBeeper().isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
-
             sm.z_move();
-
         }
 
         else if ((ay > 3 || ay < -3) && !(sm.getBeeper().isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
-
             sm.y_move();
-
         }
     }
 
