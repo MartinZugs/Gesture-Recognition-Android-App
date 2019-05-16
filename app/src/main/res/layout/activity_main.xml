@@ -7,12 +7,13 @@
     tools:context=".MainActivity">
 
     <Button
-        android:layout_width="700px"
-        android:layout_height="500px"
+        android:layout_width="257dp"
+        android:layout_height="163dp"
+        android:onClick="toggleOnOff"
         android:text="Off"
         android:textSize="100px"
-        android:onClick=""
-        tools:layout_editor_absoluteX="72dp"
+        android:id="@+id/OnOff"
+        tools:layout_editor_absoluteX="82dp"
         tools:layout_editor_absoluteY="94dp" />
 
     <!--TextView

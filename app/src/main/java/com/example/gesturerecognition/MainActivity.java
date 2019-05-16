@@ -7,6 +7,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.gesturerecognition.StateMachine.StateMachine;
@@ -20,15 +22,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Sensor gravity;
     Sensor gyro;
 
-    float ax = 0;
-    float ay = 0;
-    float az = 0;
-    float gx = 0;
-    float gy = 0;
-    float gz = 0;
-    float gyx = 0;
-    float gyy = 0;
-    float gyz = 0;
+    private boolean isOn = true;
+
+    private float ax = 0;
+    private float ay = 0;
+    private float az = 0;
+    private float gx = 0;
+    private float gy = 0;
+    private float gz = 0;
+    private float gyx = 0;
+    private float gyy = 0;
+    private float gyz = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,39 +56,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
-    public void updateView(final float x, final float y, final float z, final float gx, final float gy, final float gz, final float gyx, final float gyy, final float gyz) {
-        // UI adapter responsibility to schedule incoming events on UI thread
-        runOnUiThread(() -> {
-            final TextView tvx = (TextView) findViewById(R.id.x_value);
-            final TextView tvy = (TextView) findViewById(R.id.y_value);
-            final TextView tvz = (TextView) findViewById(R.id.z_value);
-            final TextView tvgx = (TextView) findViewById(R.id.gx_value);
-            final TextView tvgy = (TextView) findViewById(R.id.gy_value);
-            final TextView tvgz = (TextView) findViewById(R.id.gz_value);
-            final TextView tvgyx = (TextView) findViewById(R.id.gyx_value);
-            final TextView tvgyy = (TextView) findViewById(R.id.gyy_value);
-            final TextView tvgyz = (TextView) findViewById(R.id.gyz_value);
-            String str_x = "X: " + Float.toString(x);
-            String str_y = "Y: " + Float.toString(y);
-            String str_z = "Z: " + Float.toString(z);
-            String str_gx = "GX: " + Float.toString(gx);
-            String str_gy = "GY: " + Float.toString(gy);
-            String str_gz = "GZ: " + Float.toString(gz);
-            String str_gyx = "GYX: " + Float.toString(gyx);
-            String str_gyy = "GYY: " + Float.toString(gyy);
-            String str_gyz = "GYZ: " + Float.toString(gyz);
-            tvx.setText(str_x);
-            tvy.setText(str_y);
-            tvz.setText(str_z);
-            tvgx.setText(str_gx);
-            tvgy.setText(str_gy);
-            tvgz.setText(str_gz);
-            tvgyx.setText(str_gyx);
-            tvgyy.setText(str_gyy);
-            tvgyz.setText(str_gyz);
-        });
-    }
-
     @Override
     public void onSensorChanged(SensorEvent event) {
 
@@ -103,8 +74,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             gyz = event.values[2];
         }
 
-        updateView(ax, ay, az, gx, gy, gz, gyx, gyy, gyz);
-
 
         if(gz > 8.0 && gz > gy && gz > gx) {
             sm.toBack();
@@ -121,6 +90,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sm.toOff();
         }
         checkMotion(ax, ay, az);
+    }
+
+    public void toggleOnOff(View v) {
+        Button b = (Button)findViewById(R.id.OnOff);
+        if(isOn) {
+            isOn = false;
+            b.setText("Off");
+        }
+        else {
+            isOn = true;
+            b.setText("On");
+        }
     }
 
     public void checkMotion (final float ax, final float ay, final float az)
