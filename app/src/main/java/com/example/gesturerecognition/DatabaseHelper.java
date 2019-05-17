@@ -12,12 +12,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String  HIGH_TABLE_NAME = "HighSensorData";
     public static final String  TEMP_TABLE_NAME = "TempSensorData";
 
-    public static final String  COL_1 = "gx";
-    public static final String  COL_2 = "gy";
-    public static final String  COL_3 = "gz";
-    public static final String  COL_4 = "ax";
-    public static final String  COL_5 = "ay";
-    public static final String  COL_6 = "az";
+    public static final String  COL_1 = "ax";
+    public static final String  COL_2 = "ay";
+    public static final String  COL_3 = "az";
+    public static final String  COL_4 = "gx";
+    public static final String  COL_5 = "gy";
+    public static final String  COL_6 = "gz";
     public static final String  COL_7 = "gyx";
     public static final String  COL_8 = "gyy";
     public static final String  COL_9 = "gyz";
