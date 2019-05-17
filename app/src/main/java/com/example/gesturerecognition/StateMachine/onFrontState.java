@@ -15,19 +15,19 @@ public class onFrontState implements State {
 
     @Override
     public void x_move() {
-        sm.getBeeper().sayNo();
         t.setText("No");
+        sm.getBeeper().saySomething("No");
     }
 
     @Override
     public void y_move() {
-        sm.getBeeper().sayThatOne();
         t.setText("That one");
+        sm.getBeeper().saySomething("That one");
     }
 
     @Override
     public void z_move() {
-        sm.getBeeper().sayComeHere();
         t.setText("Come here");
+        sm.getBeeper().saySomething("Come here");
     }
 }

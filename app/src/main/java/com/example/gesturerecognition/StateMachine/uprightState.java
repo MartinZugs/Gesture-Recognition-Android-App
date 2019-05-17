@@ -15,19 +15,19 @@ public class uprightState implements State {
 
     @Override
     public void x_move() {
-        sm.getBeeper().sayHello();
         t.setText("Hello!");
+        sm.getBeeper().saySomething("Hello");
     }
 
     @Override
     public void y_move() {
-        sm.getBeeper().sayYes();
         t.setText("Yes");
+        sm.getBeeper().saySomething("Yes");
     }
 
     @Override
     public void z_move() {
-        sm.getBeeper().sayBye();
         t.setText("Bye");
+        sm.getBeeper().saySomething("Goodbye");
     }
 }
