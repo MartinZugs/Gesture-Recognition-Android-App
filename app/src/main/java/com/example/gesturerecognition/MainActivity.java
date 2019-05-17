@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             x = event.values[0];
             y = event.values[1];
             z = event.values[2];
-
+            myDB.insertGravData(x, y, z);
             if(z > 8.0 && z > y && z > x) {
                 sm.toBack();
             }
@@ -91,15 +91,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 sm.toUpright();
             }
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
-        /*else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+        else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             x = event.values[0];
             y = event.values[1];
             z = event.values[2];
-            if(x > .5 || z > .5 || y > .5 || x < -.5 || z < -.5 || y < -.5) {
-                isOn = false;
-            } else isOn = true;
+            myDB.insertGyroData(x, y, z);
         }
-        }*/
+
     }
 
     /**
@@ -140,9 +138,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    public void onPause(){
-        super.onPause();
-        super.onStop();
-        finish();
+    public void onStart() {
+        isOn = true;
+        super.onStart();
     }
+
+    @Override
+    public void onPause(){
+        isOn = false;
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
 }
