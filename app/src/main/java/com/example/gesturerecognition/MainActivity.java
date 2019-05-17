@@ -15,6 +15,7 @@ import com.example.gesturerecognition.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+    DatabaseHelper myDB;
     // A state machine to call each of the motion functions
     private StateMachine sm;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         // Instantiate the StateMachine
         sm = new StateMachine((MainActivity)this);
+
+        myDB = new DatabaseHelper(this);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors
