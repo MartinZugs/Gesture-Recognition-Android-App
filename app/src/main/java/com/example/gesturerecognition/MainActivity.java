@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Typical android setup stuff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Instantiate the StateMachine
         sm = new StateMachine((MainActivity)this);
 
