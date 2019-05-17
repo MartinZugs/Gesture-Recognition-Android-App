@@ -16,10 +16,6 @@ public class Beeper {
 
     public Beeper(MainActivity a) throws Exception {
         activity = a;
-        tts = new TextToSpeech(a, (TextToSpeech.OnInitListener)a);
-    }
-
-    private void setListener() {
         t1= new TextToSpeech(activity.getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
