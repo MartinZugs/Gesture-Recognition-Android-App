@@ -10,6 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String  DATABASE_NAME = "SensorData.db";
     public static final String  LOW_TABLE_NAME = "LowSensorData";
     public static final String  HIGH_TABLE_NAME = "HighSensorData";
+    public static final String  TEMP_TABLE_NAME = "TempSensorData";
 
     public static final String  COL_1 = "gx";
     public static final String  COL_2 = "gy";
@@ -30,14 +31,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + LOW_TABLE_NAME +" ("+ COL_1 +" STRING, "+ COL_2 +" STRING, "+ COL_3 +" STRING, "+ COL_4 +" STRING, "+ COL_5 +" STRING, "+ COL_6 +" STRING, "+ COL_7 +" STRING, "+ COL_8 +" STRING, "+ COL_9 +" STRING)");
-        sqLiteDatabase.execSQL("create table " + HIGH_TABLE_NAME +" ("+ COL_1 +" STRING, "+ COL_2 +" STRING, "+ COL_3 +" STRING, "+ COL_4 +" STRING, "+ COL_5 +" STRING, "+ COL_6 +" STRING, "+ COL_7 +" STRING, "+ COL_8 +" STRING, "+ COL_9 +" STRING)");
+        sqLiteDatabase.execSQL("create table " + LOW_TABLE_NAME + " (" + COL_1 + " STRING, " + COL_2 + " STRING, " + COL_3 + " STRING, " + COL_4 + " STRING, " + COL_5 + " STRING, " + COL_6 + " STRING, " + COL_7 + " STRING, " + COL_8 + " STRING, " + COL_9 + " STRING)");
+        sqLiteDatabase.execSQL("create table " + HIGH_TABLE_NAME + " (" + COL_1 + " STRING, " + COL_2 + " STRING, " + COL_3 + " STRING, " + COL_4 + " STRING, " + COL_5 + " STRING, " + COL_6 + " STRING, " + COL_7 + " STRING, " + COL_8 + " STRING, " + COL_9 + " STRING)");
+        sqLiteDatabase.execSQL("create table " + TEMP_TABLE_NAME + " (" + COL_1 + " STRING, " + COL_2 + " STRING, " + COL_3 + " STRING, " + COL_4 + " STRING, " + COL_5 + " STRING, " + COL_6 + " STRING, " + COL_7 + " STRING, " + COL_8 + " STRING, " + COL_9 + " STRING)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+LOW_TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+HIGH_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LOW_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HIGH_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TEMP_TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 
@@ -46,6 +49,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_1, x);
         contentValues.put(COL_2, y);
         contentValues.put(COL_3, z);
+        long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
+        if(result == -1) return false;
+        else return true;
     }
 
     public boolean insertGravData(Float x, Float y, Float z){
@@ -53,6 +59,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_4, x);
         contentValues.put(COL_5, y);
         contentValues.put(COL_6, z);
+        long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
+        if(result == -1) return false;
+        else return true;
     }
 
     public boolean insertGyroData(Float x, Float y, Float z){
@@ -60,5 +69,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_7, x);
         contentValues.put(COL_8, y);
         contentValues.put(COL_9, z);
+        long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
+        if(result == -1) return false;
+        else return true;
     }
 }

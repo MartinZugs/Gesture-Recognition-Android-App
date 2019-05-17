@@ -16,6 +16,7 @@ import com.example.gesturerecognition.StateMachine.StateMachine;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     DatabaseHelper myDB;
+
     // A state machine to call each of the motion functions
     private StateMachine sm;
 
@@ -39,8 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Instantiate the StateMachine
-        sm = new StateMachine((MainActivity)this);
-
+        sm = new StateMachine(this);
         myDB = new DatabaseHelper(this);
 
         // Instantiate and register each sensor variable to each of it's
@@ -69,13 +69,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
-            checkMotion(event.values[0], event.values[1], event.values[2]);
+            x = event.values[0];
+            y = event.values[1];
+            z = event.values[2];
+            checkMotion(x, y, z);
+            myDB.insertAccData(x, y, z);
         } // Else, if it was a gravity event, check for the orientation
           // and change the state accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
             x = event.values[0];
             y = event.values[1];
             z = event.values[2];
+
             if(z > 8.0 && z > y && z > x) {
                 sm.toBack();
             }
