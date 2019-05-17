@@ -54,6 +54,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
+    /**
+     * onSensorChanged
+     *  - Called every time one of the sensors detects an event
+     *  - Either an acceleration, gravity, or gyroscope event
+     *  - Use the given value to change state or call function
+     * @param event
+     */
     @Override
     public void onSensorChanged(SensorEvent event) {
 
@@ -86,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    /**
+     * Toggles the on/off button which determines if the user wants to be talking currently
+     * @param v
+     */
     public void toggleOnOff(View v) {
         Button b = (Button)findViewById(R.id.OnOff);
         if(isOn) {
