@@ -8,16 +8,16 @@ public class onBackState implements State {
 
     @Override
     public void x_move() {
-        sm.getBeeper().sayIDC();
+        sm.getBeeper().saySomething("I don't care");
     }
 
     @Override
     public void y_move() {
-        sm.getBeeper().sayHereUGo();
+        sm.getBeeper().saySomething("Here you go");
     }
 
     @Override
     public void z_move() {
-        sm.getBeeper().sayIDK();
+        sm.getBeeper().saySomething("I don't know");
     }
 }
