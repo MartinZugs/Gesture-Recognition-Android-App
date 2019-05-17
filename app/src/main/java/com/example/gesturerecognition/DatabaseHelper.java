@@ -11,12 +11,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String  LOW_TABLE_NAME = "LowSensorData";
     public static final String  HIGH_TABLE_NAME = "HighSensorData";
 
-    public static final String  COL_1 = "gx";
-    public static final String  COL_2 = "gy";
-    public static final String  COL_3 = "gz";
-    public static final String  COL_4 = "ax";
-    public static final String  COL_5 = "ay";
-    public static final String  COL_6 = "az";
+    public static final String  COL_1 = "ax";
+    public static final String  COL_2 = "ay";
+    public static final String  COL_3 = "az";
+    public static final String  COL_4 = "gx";
+    public static final String  COL_5 = "gy";
+    public static final String  COL_6 = "gz";
     public static final String  COL_7 = "gyx";
     public static final String  COL_8 = "gyy";
     public static final String  COL_9 = "gyz";
@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_1, x);
         contentValues.put(COL_2, y);
         contentValues.put(COL_3, z);
+        return true;
     }
 
     public boolean insertGravData(Float x, Float y, Float z){
@@ -53,6 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_4, x);
         contentValues.put(COL_5, y);
         contentValues.put(COL_6, z);
+        return true;
     }
 
     public boolean insertGyroData(Float x, Float y, Float z){
@@ -60,5 +62,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_7, x);
         contentValues.put(COL_8, y);
         contentValues.put(COL_9, z);
+        return true;
     }
 }
