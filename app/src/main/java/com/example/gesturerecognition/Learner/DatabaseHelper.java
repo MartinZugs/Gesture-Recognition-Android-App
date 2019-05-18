@@ -1,4 +1,4 @@
-package com.example.gesturerecognition;
+package com.example.gesturerecognition.Learner;
 
 import android.content.ContentValues;
 import android.content.Context;
