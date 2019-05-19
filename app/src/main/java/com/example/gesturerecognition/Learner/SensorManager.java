@@ -52,6 +52,7 @@ public class SensorManager {
     public void addGrav(SensorEvent e)  { newData(e.values, 3); }
     public void addGyro(SensorEvent e)  { newData(e.values, 6); }
 
+    // As new data comes in, manage it by storing extra values and flushing when main data is full
     public void newData(float[] values, int index) {
         // try to flush the data if all of the values are filled
         // If this passes, data will be empty, else it will be partially full

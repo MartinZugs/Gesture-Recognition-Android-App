@@ -12,15 +12,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String  HIGH_TABLE_NAME = "HighSensorData";
     public static final String  TEMP_TABLE_NAME = "TempSensorData";
 
-    public static final String  COL_1 = "ax";
-    public static final String  COL_2 = "ay";
-    public static final String  COL_3 = "az";
-    public static final String  COL_4 = "gx";
-    public static final String  COL_5 = "gy";
-    public static final String  COL_6 = "gz";
-    public static final String  COL_7 = "gyx";
-    public static final String  COL_8 = "gyy";
-    public static final String  COL_9 = "gyz";
+    private static final int CAP = 9;
+
+    private static final String[] COLS = {  "ax", "ay", "az",
+                                            "gx", "gy", "gz",
+                                            "gyx","gyy","gyz" };
 
     SQLiteDatabase db;
 
@@ -31,9 +27,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + LOW_TABLE_NAME + " (" + COL_1 + " STRING, " + COL_2 + " STRING, " + COL_3 + " STRING, " + COL_4 + " STRING, " + COL_5 + " STRING, " + COL_6 + " STRING, " + COL_7 + " STRING, " + COL_8 + " STRING, " + COL_9 + " STRING)");
-        sqLiteDatabase.execSQL("create table " + HIGH_TABLE_NAME + " (" + COL_1 + " STRING, " + COL_2 + " STRING, " + COL_3 + " STRING, " + COL_4 + " STRING, " + COL_5 + " STRING, " + COL_6 + " STRING, " + COL_7 + " STRING, " + COL_8 + " STRING, " + COL_9 + " STRING)");
-        sqLiteDatabase.execSQL("create table " + TEMP_TABLE_NAME + " (" + COL_1 + " STRING, " + COL_2 + " STRING, " + COL_3 + " STRING, " + COL_4 + " STRING, " + COL_5 + " STRING, " + COL_6 + " STRING, " + COL_7 + " STRING, " + COL_8 + " STRING, " + COL_9 + " STRING)");
+        // We just want to hold the long string to instantiate each table without having to
+        // copy the same long line a bunch of times
+        String colInit = " (" + COLS[1] + " STRING, " + COLS[2] + " STRING, " + COLS[3] +
+                " STRING, " + COLS[4] + " STRING, " + COLS[5] + " STRING, " + COLS[6] +
+                " STRING, " + COLS[7] + " STRING, " + COLS[8] + " STRING, " + COLS[9] + " STRING)";
+
+        sqLiteDatabase.execSQL("create table " + LOW_TABLE_NAME + colInit);
+        sqLiteDatabase.execSQL("create table " + HIGH_TABLE_NAME + colInit);
+        sqLiteDatabase.execSQL("create table " + TEMP_TABLE_NAME + colInit);
     }
 
     @Override
@@ -46,9 +48,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertAccData(Float x, Float y, Float z){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1, x);
-        contentValues.put(COL_2, y);
-        contentValues.put(COL_3, z);
+        contentValues.put(COLS[1], x);
+        contentValues.put(COLS[2], y);
+        contentValues.put(COLS[3], z);
         long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
@@ -56,9 +58,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertGravData(Float x, Float y, Float z){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_4, x);
-        contentValues.put(COL_5, y);
-        contentValues.put(COL_6, z);
+        contentValues.put(COLS[4], x);
+        contentValues.put(COLS[5], y);
+        contentValues.put(COLS[6], z);
         long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
@@ -66,9 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertGyroData(Float x, Float y, Float z){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_7, x);
-        contentValues.put(COL_8, y);
-        contentValues.put(COL_9, z);
+        contentValues.put(COLS[7], x);
+        contentValues.put(COLS[8], y);
+        contentValues.put(COLS[9], z);
         long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
