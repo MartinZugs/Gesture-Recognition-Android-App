@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.gesturerecognition.DefaultGestures.GestureManager;
 import com.example.gesturerecognition.Learner.DatabaseHelper;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * under which we can save the sensor readings of the device when the user
      * wants to create a new gesture
      */
-    private DatabaseHelper myDB;
+    private GestureManager gm;
     private Float[][] dataContainer = new Float[4][3];
 
     /**
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Instantiate the database helper and Sensor Manager
-        myDB = new DatabaseHelper(this);
+        // Instantiate the Gesture Manager
+        gm = new GestureManager(this);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }
         // Push to the database
-        myDB.insertData(dataContainer);
+        gm.checkInput(dataContainer);
     }
 
     /**
