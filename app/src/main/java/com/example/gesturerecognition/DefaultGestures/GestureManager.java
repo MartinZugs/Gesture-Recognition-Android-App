@@ -20,7 +20,7 @@ public class GestureManager {
         // set all of the default gesture objects
     }
 
-    public void checkInput(ArrayList<Float> data) {
+    public void checkInput(Float[][] data) {
         // check each gesture object for patterns in the motion based on the incoming sensor input
         // or save to the database
         db.insertData(data);
