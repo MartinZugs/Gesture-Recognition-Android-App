@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.gesturerecognition.Learner.DatabaseHelper;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     /**
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * wants to create a new gesture
      */
     private DatabaseHelper myDB;
+    private ArrayList<Float> dataSet = new ArrayList<>(9);
 
     /**
      * Instantiate a sensorManager service to handle each sensor
@@ -36,15 +39,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * Triggered by a button push
      */
     private boolean isOn = true;
-
-    /**
-     * x, y, and z are changed with every event call on the sensors, and they change dynamically
-     * to do different functions based on the current event call.
-     * They will either be accelerometer readings, gravity readings, or gyroscope readings
-     */
-    private float x = 0;
-    private float y = 0;
-    private float z = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             System.out.println("Gyro" + x);
         }
-
     }
 
     /**
