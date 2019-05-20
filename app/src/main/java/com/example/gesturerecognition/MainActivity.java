@@ -1,6 +1,7 @@
 package com.example.gesturerecognition;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Typical android setup stuff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set to portrait
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Instantiate the Gesture Manager
         gm = new GestureManager(this);
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     {
         setContentView(R.layout.activity_learn);
     }
-    
+
     public void toActivityMain(View v)
     {
         setContentView(R.layout.activity_main);
