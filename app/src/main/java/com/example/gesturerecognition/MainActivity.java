@@ -140,9 +140,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    public void changeScreen()
+    public void changeScreen(View v)
     {
         setContentView(R.layout.activity_learn);
+    }
+    
+    public void toActivityMain(View v)
+    {
+        setContentView(R.layout.activity_main);
     }
 
     /**
