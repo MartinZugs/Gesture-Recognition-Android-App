@@ -78,11 +78,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensorManager.registerListener(MainActivity.this,
-                linear_acceleration, android.hardware.SensorManager.SENSOR_DELAY_NORMAL);
+                linear_acceleration, android.hardware.SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(MainActivity.this,
-                gravity, android.hardware.SensorManager.SENSOR_DELAY_NORMAL);
+                gravity, android.hardware.SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(MainActivity.this,
-                gyro, android.hardware.SensorManager.SENSOR_DELAY_NORMAL);
+                gyro, android.hardware.SensorManager.SENSOR_DELAY_GAME);
     }
 
     /**
