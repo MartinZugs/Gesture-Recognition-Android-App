@@ -23,6 +23,7 @@ public class StateMachine {
         ONBACK = new onBackState(this);
         ONFRONT = new onFrontState(this);
         UPRIGHT = new uprightState(this);
+        this.state = ONFRONT;
     }
 
     public void toBack() { this.state = ONBACK; }

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Instantiate the StateMachine, database helper, and Sensor Manager
         sm = new StateMachine(this);
         myDB = new DatabaseHelper(this);
-        manager = new SensorManager();
+        manager = new SensorManager(this);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors

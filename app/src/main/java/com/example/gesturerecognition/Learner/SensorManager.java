@@ -3,6 +3,7 @@ package com.example.gesturerecognition.Learner;
 import android.hardware.SensorEvent;
 
 import com.example.gesturerecognition.DefaultGestures.GestureManager;
+import com.example.gesturerecognition.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,15 +38,20 @@ public class SensorManager {
      *  (which isn't at all a problem because it will just average out), but also allow us
      *  to have an even, constant amount of data collected for each sensor in the long run.
      */
-    private ArrayList<Float>[] extras = new ArrayList[9];
+    private ArrayList<ArrayList<Float>> extras = new ArrayList<>(CAP);
     private int numExtras = 0;
 
-    private GestureManager gm = new GestureManager();
+    private GestureManager gm;
 
-    public SensorManager() {
+    public SensorManager(MainActivity a) {
+        gm = new GestureManager(a);
         // Fill data with -1's so that we can check to see if it has been filled with
         // a value from each sensor before pushing to the gesture manager
-        for(int i = 0; i < CAP; i++) data.set(i, Float.valueOf(-1));
+        for(int i = 0; i < CAP; i++) {
+            data.add(i, (float)-1.0);
+            extras.add(i, new ArrayList<>());
+        }
+        System.out.println(extras.toString());
     }
 
     public void addAccel(SensorEvent e) { newData(e.values, 0); }
@@ -58,16 +64,17 @@ public class SensorManager {
         // If this passes, data will be empty, else it will be partially full
         tryFlush();
         // If the spots where the sensor wants to save data are free, let it save the data
-        if(data.get(index) == -1)
-            for(int i = index; i < index + 3; i++) data.set(i, values[i - index]);
+        if(data.get(index) == (float)-1.0)
+            for(int i = index; i < index + 2; i++) data.set(i, values[i - index]);
         else { // Else, we know that there will be other -1's in data, so
                 //we can save to the extras
             for(int i = 0; i < CAP; i++) {
                 // If i is within the index range of one of our extra values, add it to that spot
-                if(i > index && i < index + 3) extras[i].set(numExtras, values[i - index]);
+                if(i > index && i < index + 3) extras.get(i).add(values[i - index]);
                 // Else, put a -1 there to indicate a spot in need of replacing
-                else extras[i].set(numExtras, Float.valueOf(-1));
+                else extras.get(i).add((float) -1.0);
             }
+            //System.out.println("ADDED AN ITEM TO EXTRAS");
             numExtras++;
         }
     }
@@ -80,19 +87,21 @@ public class SensorManager {
      */
     public void tryFlush() {
         // If there are any -1's, return
-        for(int i = 0; i < CAP; i++) if(data.get(i) == -1) return;
+        for(int i = 0; i < CAP; i++) if(data.get(i) == (float)-1.0) return;
         // Else, throw the data over to the gesture manager
+        //System.out.println("FLUSHED DATA: " + data.toString());
         gm.checkInput(data);
         // Check the extras for empty slots and fill those with the corresponding
         // data slots, push then repeat.  If numExtras is 0, there are no extras to push
+        if(numExtras == 0) return;
         for(int i = 0; i < numExtras; i++) {
             // temp will temporarily hold each member of the currently addressed extra row
             ArrayList<Float> temp = new ArrayList<>(CAP);
             for(int j = 0; j < CAP; j++) {
-                if(extras[j].get(i) == -1) {
-                    extras[j].add(i, data.get(j));
+                if(extras.get(j).get(i) == (float)-1.0) {
+                    extras.get(j).set(i, data.get(j));
                 }
-                temp.set(j, extras[j].get(i));
+                temp.set(j, extras.get(j).get(i));
             }
             // At this point, we've iterated through a single extra member, so its time to
             // push that one to the GM
@@ -100,8 +109,11 @@ public class SensorManager {
         }
         // Now, all of the extras have been pushed to the GM, so we can flush extras and data
         // and finish up nice and clean with fresh ArrayLists
-        Arrays.fill(extras, new ArrayList<Float>());
-        for(int i = 0; i < CAP; i++) data.set(i, Float.valueOf(-1));
+        for(int i = 0; i < CAP; i++) {
+            data.set(i, (float) -1.0);
+            extras.set(i, new ArrayList<>());
+        }
         numExtras = 0;
+        //System.out.println("FLUSHED EVERYTHING");
     }
 }

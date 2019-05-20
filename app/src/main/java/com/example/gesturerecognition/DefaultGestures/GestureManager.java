@@ -2,17 +2,20 @@ package com.example.gesturerecognition.DefaultGestures;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.gesturerecognition.Learner.DatabaseHelper;
 import com.example.gesturerecognition.Learner.SensorManager;
+import com.example.gesturerecognition.MainActivity;
+
 import java.util.ArrayList;
 
 public class GestureManager {
 
-    private SQLiteDatabase db;
+    private DatabaseHelper db;
 
     private boolean isRecording = false;
 
-    public GestureManager(SQLiteDatabase db) {
-        this.db = db;
+    public GestureManager(MainActivity a) {
+        this.db = new DatabaseHelper(a);
         setDefaults();
     }
 
@@ -23,6 +26,6 @@ public class GestureManager {
     public void checkInput(ArrayList<Float> data) {
         // check each gesture object for patterns in the motion based on the incoming sensor input
         // or save to the database
-
+        db.insertData(data);
     }
 }
