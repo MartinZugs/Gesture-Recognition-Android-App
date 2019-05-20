@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.gesturerecognition.Learner.DatabaseHelper;
 import com.example.gesturerecognition.Learner.dataOrganizer;
-import com.example.gesturerecognition.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -28,12 +27,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * in a clean fashion and delegate them to a GestureManager for proper usage
      */
     private dataOrganizer organizer;
-
-    /**
-     * A state machine to call each of the motion functions based on which orientation
-     * state the phone is currently in
-     */
-    private StateMachine sm;
 
     /**
      * Instantiate a sensorManager service to handle each sensor
@@ -66,8 +59,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Instantiate the StateMachine, database helper, and Sensor Manager
-        sm = new StateMachine(this);
+        // Instantiate the database helper and Sensor Manager
         myDB = new DatabaseHelper(this);
         organizer = new dataOrganizer(this);
 
@@ -104,27 +96,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
-            x = event.values[0];
-            y = event.values[1];
-            z = event.values[2];
-            checkMotion(x, y, z);
             organizer.addAccel(event);
         } // Else, if it was a gravity event, check for the orientation
           // and change the state accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
-            x = event.values[0];
-            y = event.values[1];
-            z = event.values[2];
             organizer.addGrav(event);
-            if(z > 8.0 && z > y && z > x) {
-                sm.toBack();
-            }
-            else if(z < -8.0 && z < y && z < x) {
-                sm.toFront();
-            }
-            else if(y > 8.0 && y > z && y > z) {
-                sm.toUpright();
-            }
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             organizer.addGyro(event);
@@ -146,30 +122,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else {
             isOn = true;
             b.setText("On");
-        }
-    }
-
-    /**
-     * checkMotion checks the acceleration values for default gestures, and calls the
-     * StateMachine's generic x/y/z-move functions, which delegate to the current state
-     *
-     * @param ax
-     * @param ay
-     * @param az
-     */
-    public void checkMotion (final float ax, final float ay, final float az)
-    {
-        if ((ax > 2.5 || ax < -2.5) && !(sm.getBeeper().isPlaying()) &&
-                ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
-            sm.x_move();
-        }
-        else if ((az > 2.5 || az < -2.5) && !(sm.getBeeper().isPlaying()) &&
-                ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
-            sm.z_move();
-        }
-        else if ((ay > 2.5 || ay < -2.5) && !(sm.getBeeper().isPlaying()) &&
-                ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
-            sm.y_move();
         }
     }
 
