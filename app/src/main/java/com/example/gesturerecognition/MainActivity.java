@@ -8,12 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.gesturerecognition.DefaultGestures.GestureManager;
-import com.example.gesturerecognition.Learner.DatabaseHelper;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -24,16 +20,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private GestureManager gm;
     private Float[][] dataContainer = new Float[4][3];
-
-    /**
-     * Instantiate a sensorManager service to handle each sensor
-     * - linear_acceleration is used to rad each lateral movement of the device
-     * - gravity is used to determine the current orientation state of the device
-     * - gyro is used to determine if the device is currently rotating, and the axis
-     *   on which it is rotating
-      */
-    private android.hardware.SensorManager sensorManager;
-    private Sensor linear_acceleration, gravity, gyro, rotVec;
 
     /**
      * isOn toggles whether the user wants to read their data currently or not.
@@ -50,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Instantiate the Gesture Manager
         gm = new GestureManager(this);
 
+        // Create a sensorManager and sensor variable
+        android.hardware.SensorManager sensorManager;
+        Sensor linear_acceleration, gravity, gyro, rotVec;
+
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors
         sensorManager = (android.hardware.SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -57,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         rotVec = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
         sensorManager.registerListener(MainActivity.this,
                 linear_acceleration, android.hardware.SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(MainActivity.this,
@@ -80,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      *  - Either an acceleration, gravity, or gyroscope event
      *  - Use the given value to change state or call function based on event type
      *
-     * @param event
+     * @param event - The currently calling sensor event
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -120,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     /**
      * Toggles the on/off button which determines if the user wants to be talking currently
      *
-     * @param v
+     * @param v - View from button event
      */
     public void toggleOnOff(View v) {
         Button b = (Button)findViewById(R.id.OnOff);
@@ -141,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      *      the computer has gathered enough data and learned it.
      *   -  The button indicates that the user wants to start recording their gesture
      *   -  We then record the gesture for 2 seconds
-     * @param v
+     * @param v - view from button event
      */
     public void CreateNewMotion(View v) {
         /**
@@ -160,10 +151,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
          */
     }
 
-    public TextView getLastMotion() {
-        return (TextView) findViewById(R.id.lastMotion);
-    }
-
     @Override
     public void onStart() {
         isOn = true;
@@ -175,10 +162,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         isOn = false;
         super.onPause();
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
 }
