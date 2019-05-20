@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String colInit = " (" + COLS[0] + " STRING, " + COLS[1] + " STRING, " + COLS[2] +
                 " STRING, " + COLS[3] + " STRING, " + COLS[4] + " STRING, " + COLS[5] +
                 " STRING, " + COLS[6] + " STRING, " + COLS[7] + " STRING, " + COLS[8] + " STRING,"
-                + COLS[9] + " STRING,"+ COLS[10] + " STRING,"+ COLS[11] + " STRING,"+ COLS[12] + " STRING)";
+                + COLS[9] + " STRING,"+ COLS[10] + " STRING,"+ COLS[11] + " STRING)";
 
         sqLiteDatabase.execSQL("create table " + MAIN_TABLE_NAME + colInit);
     }

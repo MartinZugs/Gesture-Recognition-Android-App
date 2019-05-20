@@ -99,13 +99,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         // Check if any members of the dataContainer are empty
         for(int i = 0; i < dataContainer.length; i++) {
-            for(int j = 0; j < dataContainer[i].length; i++) {
+            for(int j = 0; j < dataContainer[i].length; j++) {
                 // If there is nothing there, return
-                if(dataContainer[i][j] != -1) return;
+                if(dataContainer[i][j] == null) return;
             }
         }
         // Push to the database
         gm.checkInput(dataContainer);
+        dataContainer = new Float[4][3];
     }
 
     /**
