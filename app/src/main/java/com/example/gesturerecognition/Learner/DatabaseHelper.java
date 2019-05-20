@@ -10,15 +10,12 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String  DATABASE_NAME = "SensorData.db";
-    public static final String  LOW_TABLE_NAME = "LowSensorData";
-    public static final String  HIGH_TABLE_NAME = "HighSensorData";
-    public static final String  TEMP_TABLE_NAME = "TempSensorData";
-
-    private static final int CAP = 9;
+    public static final String  MAIN_TABLE_NAME = "SensorData";
 
     private static final String[] COLS = {  "ax", "ay", "az",
                                             "gx", "gy", "gz",
-                                            "gyx","gyy","gyz" };
+                                            "gyx","gyy","gyz",
+                                            "rx","ry","rz"};
 
     SQLiteDatabase db;
 
@@ -33,54 +30,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // copy the same long line a bunch of times
         String colInit = " (" + COLS[0] + " STRING, " + COLS[1] + " STRING, " + COLS[2] +
                 " STRING, " + COLS[3] + " STRING, " + COLS[4] + " STRING, " + COLS[5] +
-                " STRING, " + COLS[6] + " STRING, " + COLS[7] + " STRING, " + COLS[8] + " STRING)";
+                " STRING, " + COLS[6] + " STRING, " + COLS[7] + " STRING, " + COLS[8] + " STRING,"
+                + COLS[9] + " STRING,"+ COLS[10] + " STRING,"+ COLS[11] + " STRING,"+ COLS[12] + " STRING)";
 
-        sqLiteDatabase.execSQL("create table " + LOW_TABLE_NAME + colInit);
-        sqLiteDatabase.execSQL("create table " + HIGH_TABLE_NAME + colInit);
-        sqLiteDatabase.execSQL("create table " + TEMP_TABLE_NAME + colInit);
+        sqLiteDatabase.execSQL("create table " + MAIN_TABLE_NAME + colInit);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LOW_TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HIGH_TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TEMP_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MAIN_TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 
     public boolean insertData(Float[][] sensorData) {
         ContentValues contentValues = new ContentValues();
-        long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
-        if(result == -1) return false;
-        else return true;
-    }
-
-    public boolean insertAccData(Float x, Float y, Float z){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLS[1], x);
-        contentValues.put(COLS[2], y);
-        contentValues.put(COLS[3], z);
-        long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
-        if(result == -1) return false;
-        else return true;
-    }
-
-    public boolean insertGravData(Float x, Float y, Float z){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLS[4], x);
-        contentValues.put(COLS[5], y);
-        contentValues.put(COLS[6], z);
-        long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
-        if(result == -1) return false;
-        else return true;
-    }
-
-    public boolean insertGyroData(Float x, Float y, Float z){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLS[7], x);
-        contentValues.put(COLS[8], y);
-        contentValues.put(COLS[9], z);
-        long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
+        contentValues.put(COLS[0], sensorData[0][0]);
+        contentValues.put(COLS[1], sensorData[0][1]);
+        contentValues.put(COLS[2], sensorData[0][2]);
+        contentValues.put(COLS[3], sensorData[0][3]);
+        contentValues.put(COLS[4], sensorData[0][0]);
+        contentValues.put(COLS[5], sensorData[0][1]);
+        contentValues.put(COLS[6], sensorData[0][2]);
+        contentValues.put(COLS[7], sensorData[0][3]);
+        contentValues.put(COLS[8], sensorData[0][0]);
+        contentValues.put(COLS[9], sensorData[0][1]);
+        contentValues.put(COLS[10], sensorData[0][2]);
+        contentValues.put(COLS[11], sensorData[0][3]);
+        long result = db.insert(MAIN_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
     }
