@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * wants to create a new gesture
      */
     private DatabaseHelper myDB;
-    private ArrayList<Float> dataSet = new ArrayList<>(9);
+    private Float[][] dataContainer = new Float[4][3];
 
     /**
      * Instantiate a sensorManager service to handle each sensor
@@ -83,23 +83,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
-        long x = event.timestamp;
-
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
-            System.out.println("Acc" + x);
+            dataContainer[0][0] = event.values[0];
+            dataContainer[0][1] = event.values[1];
+            dataContainer[0][2] = event.values[2];
         } // Else, if it was a gravity event, check for the orientation
           // and change the state accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
-            System.out.println("Grav" + x);
+            dataContainer[1][0] = event.values[0];
+            dataContainer[1][1] = event.values[1];
+            dataContainer[1][2] = event.values[2];
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            System.out.println("Gyro" + x);
-
+            dataContainer[2][0] = event.values[0];
+            dataContainer[2][1] = event.values[1];
+            dataContainer[2][2] = event.values[2];
         }
         else if(event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-            System.out.println("Rot" + x);
+            dataContainer[3][0] = event.values[0];
+            dataContainer[3][1] = event.values[1];
+            dataContainer[3][2] = event.values[2];
         }
+        // Check if any members of the dataContainer are empty
+        for(int i = 0; i < dataContainer.length; i++) {
+            for(int j = 0; j < dataContainer[i].length; i++) {
+                // If there is nothing there, return
+                if(dataContainer[i][j] != -1) return;
+            }
+        }
+        // Push to the database
+        myDB.insertData(dataContainer);
     }
 
     /**

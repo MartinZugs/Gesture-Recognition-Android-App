@@ -48,17 +48,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertData(ArrayList<Float> sensorData) {
+    public boolean insertData(Float[][] sensorData) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLS[1], sensorData.get(0));
-        contentValues.put(COLS[2], sensorData.get(1));
-        contentValues.put(COLS[3], sensorData.get(2));
-        contentValues.put(COLS[1], sensorData.get(3));
-        contentValues.put(COLS[2], sensorData.get(4));
-        contentValues.put(COLS[3], sensorData.get(5));
-        contentValues.put(COLS[1], sensorData.get(6));
-        contentValues.put(COLS[2], sensorData.get(7));
-        contentValues.put(COLS[3], sensorData.get(8));
         long result = db.insert(TEMP_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
