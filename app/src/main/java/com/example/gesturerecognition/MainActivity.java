@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import com.example.gesturerecognition.DefaultGestures.GestureManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     /**
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private GestureManager gm;
     private Float[][] dataContainer = new Float[4][3];
+    private Beeper b;
 
     /**
      * isOn toggles whether the user wants to read their data currently or not.
@@ -35,6 +38,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Instantiate the Gesture Manager
         gm = new GestureManager(this);
+
+        // Instantiate Beeper
+        try {
+            b = new Beeper(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Create a sensorManager and sensor variable
         android.hardware.SensorManager sensorManager;
@@ -97,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             dataContainer[3][1] = event.values[1];
             dataContainer[3][2] = event.values[2];
         }
+
+        /*
         // Check if any members of the dataContainer are empty
         for(int i = 0; i < dataContainer.length; i++) {
             for(int j = 0; j < dataContainer[i].length; j++) {
@@ -104,9 +116,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if(dataContainer[i][j] == null) return;
             }
         }
+        */
+
         // Push to the database
-        gm.checkInput(dataContainer);
-        dataContainer = new Float[4][3];
+        //gm.checkInput(dataContainer);
+        //dataContainer = new Float[4][3];
     }
 
     /**
@@ -126,6 +140,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    public void changeScreen()
+    {
+        setContentView(R.layout.activity_learn);
+    }
+
     /**
      * Pops up a text box that asks what the user wants their new gesture to say.
      * Then, it shows a button that has a number above it
@@ -135,7 +154,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      *   -  We then record the gesture for 2 seconds
      * @param v - view from button event
      */
-    public void CreateNewMotion(View v) {
+    public void CreateNewMotion(View v) throws InterruptedException {
+
+        //waits for 2 seconds and beeps
+        TimeUnit.SECONDS.sleep(1);
+        b.saySomething("Go");
+
+        // Push to the database
+        gm.checkInput(dataContainer);
+
         /**
          * TODO: switch to a new page
          *      - *TEXT BOX* requesting the word that this new gesture says
