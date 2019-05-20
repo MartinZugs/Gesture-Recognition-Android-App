@@ -94,15 +94,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
+        long x = event.timestamp;
+
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
+            System.out.println("Acc" + x);
             organizer.addAccel(event);
         } // Else, if it was a gravity event, check for the orientation
           // and change the state accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
+            System.out.println("Grav" + x);
             organizer.addGrav(event);
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+            System.out.println("Gyro" + x);
             organizer.addGyro(event);
         }
 
