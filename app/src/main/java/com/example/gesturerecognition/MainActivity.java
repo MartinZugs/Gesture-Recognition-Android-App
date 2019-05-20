@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.gesturerecognition.Learner.DatabaseHelper;
-import com.example.gesturerecognition.Learner.dataOrganizer;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -21,12 +20,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * wants to create a new gesture
      */
     private DatabaseHelper myDB;
-
-    /**
-     * The dataOrganizer will be used to organize all of our sensor readings
-     * in a clean fashion and delegate them to a GestureManager for proper usage
-     */
-    private dataOrganizer organizer;
 
     /**
      * Instantiate a sensorManager service to handle each sensor
@@ -61,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Instantiate the database helper and Sensor Manager
         myDB = new DatabaseHelper(this);
-        organizer = new dataOrganizer(this);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors
@@ -102,12 +94,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
             System.out.println("Acc" + x);
-
         } // Else, if it was a gravity event, check for the orientation
           // and change the state accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
             System.out.println("Grav" + x);
-
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             System.out.println("Gyro" + x);
@@ -115,8 +105,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         else if(event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
             System.out.println("Rot" + x);
-
-        }
+        } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
 
     }
 
