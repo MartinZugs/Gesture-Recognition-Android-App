@@ -8,7 +8,7 @@ import com.example.gesturerecognition.MainActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SensorManager {
+public class dataOrganizer {
 
     /**
      * data will hold 9 Floats. Three members from each sensor.  When it is full, it will
@@ -43,7 +43,7 @@ public class SensorManager {
 
     private GestureManager gm;
 
-    public SensorManager(MainActivity a) {
+    public dataOrganizer(MainActivity a) {
         gm = new GestureManager(a);
         // Fill data with -1's so that we can check to see if it has been filled with
         // a value from each sensor before pushing to the gesture manager

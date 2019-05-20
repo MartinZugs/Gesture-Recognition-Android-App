@@ -1,9 +1,6 @@
 package com.example.gesturerecognition.DefaultGestures;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import com.example.gesturerecognition.Learner.DatabaseHelper;
-import com.example.gesturerecognition.Learner.SensorManager;
 import com.example.gesturerecognition.MainActivity;
 
 import java.util.ArrayList;

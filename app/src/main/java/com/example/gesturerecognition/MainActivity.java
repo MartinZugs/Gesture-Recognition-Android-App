@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.gesturerecognition.Learner.DatabaseHelper;
-import com.example.gesturerecognition.Learner.SensorManager;
+import com.example.gesturerecognition.Learner.dataOrganizer;
 import com.example.gesturerecognition.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private DatabaseHelper myDB;
 
     /**
-     * The SensorManager will be used to organize all of our sensor readings
+     * The dataOrganizer will be used to organize all of our sensor readings
      * in a clean fashion and delegate them to a GestureManager for proper usage
      */
-    private SensorManager manager;
+    private dataOrganizer organizer;
 
     /**
      * A state machine to call each of the motion functions based on which orientation
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Instantiate the StateMachine, database helper, and Sensor Manager
         sm = new StateMachine(this);
         myDB = new DatabaseHelper(this);
-        manager = new SensorManager(this);
+        organizer = new dataOrganizer(this);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors
@@ -108,14 +108,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             y = event.values[1];
             z = event.values[2];
             checkMotion(x, y, z);
-            manager.addAccel(event);
+            organizer.addAccel(event);
         } // Else, if it was a gravity event, check for the orientation
           // and change the state accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
             x = event.values[0];
             y = event.values[1];
             z = event.values[2];
-            manager.addGrav(event);
+            organizer.addGrav(event);
             if(z > 8.0 && z > y && z > x) {
                 sm.toBack();
             }
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            manager.addGyro(event);
+            organizer.addGyro(event);
         }
 
     }
