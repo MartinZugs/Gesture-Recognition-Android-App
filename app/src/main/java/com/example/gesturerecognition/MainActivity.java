@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      *   on which it is rotating
       */
     private android.hardware.SensorManager sensorManager;
-    private Sensor linear_acceleration, gravity, gyro;
+    private Sensor linear_acceleration, gravity, gyro, rotVec;
 
     /**
      * isOn toggles whether the user wants to read their data currently or not.
@@ -55,8 +55,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         linear_acceleration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        rotVec = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         sensorManager.registerListener(MainActivity.this,
                 linear_acceleration, android.hardware.SensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(MainActivity.this,
+                rotVec, android.hardware.SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(MainActivity.this,
                 gravity, android.hardware.SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(MainActivity.this,
@@ -92,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             System.out.println("Gyro" + x);
+
+        }
+        else if(event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+            System.out.println("Rot" + x);
         }
     }
 
