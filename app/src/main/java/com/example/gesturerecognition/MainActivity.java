@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
-        if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
+        if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION ) {
             dataContainer[0][0] = event.values[0];
             dataContainer[0][1] = event.values[1];
             dataContainer[0][2] = event.values[2];
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             dataContainer[3][2] = event.values[2];
         }
 
-        /*
+
         // Check if any members of the dataContainer are empty
         for(int i = 0; i < dataContainer.length; i++) {
             for(int j = 0; j < dataContainer[i].length; j++) {
@@ -120,10 +120,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if(dataContainer[i][j] == null) return;
             }
         }
-        */
+
 
         // Push to the database
-        //gm.checkInput(dataContainer);
+        gm.checkInput(dataContainer);
         //dataContainer = new Float[4][3];
     }
 
@@ -164,13 +164,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @param v - view from button event
      */
     public void CreateNewMotion(View v) throws InterruptedException {
+        isOn = false;
 
         //waits for 2 seconds and beeps
         TimeUnit.SECONDS.sleep(1);
         b.saySomething("Go");
-
-        // Push to the database
-        gm.checkInput(dataContainer);
+        gm.toggleRecord();
 
         /**
          * TODO: switch to a new page
