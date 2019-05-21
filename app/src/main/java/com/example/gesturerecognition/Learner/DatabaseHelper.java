@@ -68,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertSample(ArrayList<Float[][]> samples, String gName) {
 
-        db.execSQL("create table if not exists " + gName + "(sample1 STRING)");
+        db.execSQL("create table if not exists " + gName + "(init STRING)");
         String colNum = "sample" + Integer.toString(inc);
         System.out.println(colNum);
         db.execSQL("ALTER TABLE " + gName + " ADD COLUMN " + colNum + " REAL");
