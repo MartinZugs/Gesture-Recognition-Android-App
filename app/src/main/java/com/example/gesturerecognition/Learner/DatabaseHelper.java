@@ -17,6 +17,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                             "gyx","gyy","gyz",
                                             "rx","ry","rz"};
 
+    private static final int CAP = 9;
+
+    private static String COLUMNS = "";
+
     SQLiteDatabase db;
 
     public DatabaseHelper(Context context) {
@@ -28,12 +32,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // We just want to hold the long string to instantiate each table without having to
         // copy the same long line a bunch of times
+        /*
         String colInit = " (" + COLS[0] + " STRING, " + COLS[1] + " STRING, " + COLS[2] +
                 " STRING, " + COLS[3] + " STRING, " + COLS[4] + " STRING, " + COLS[5] +
                 " STRING, " + COLS[6] + " STRING, " + COLS[7] + " STRING, " + COLS[8] + " STRING,"
                 + COLS[9] + " STRING,"+ COLS[10] + " STRING,"+ COLS[11] + " STRING)";
 
         sqLiteDatabase.execSQL("create table " + MAIN_TABLE_NAME + colInit);
+        */
     }
 
     @Override
@@ -53,11 +59,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLS[6], sensorData[2][0]);
         contentValues.put(COLS[7], sensorData[2][1]);
         contentValues.put(COLS[8], sensorData[2][2]);
-        contentValues.put(COLS[9], sensorData[3][0]);
-        contentValues.put(COLS[10], sensorData[3][1]);
-        contentValues.put(COLS[11], sensorData[3][2]);
         long result = db.insert(MAIN_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
+    }
+
+    public void insertSample(ArrayList<Float[][]> samples, String gName) {
+        // Iterate through the data and make a bunch of columns for each data member
+        for(int i = 0; i < samples.size(); i++) {
+            for(int j = 0; j < samples.get(i).length; j++) {
+                for(int n = 0; n < samples.get(i)[j].length; n++) {
+                    COLUMNS += i + j + n + " STRING, ";
+                }
+            }
+        }
+        db.execSQL("create table " + gName + COLUMNS);
+        System.out.println(COLUMNS);
     }
 }
