@@ -31,14 +31,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // We just want to hold the long string to instantiate each table without having to
         // copy the same long line a bunch of times
-
+        /*
         String colInit = " (" + COLS[0] + " STRING, " + COLS[1] + " STRING, " + COLS[2] +
                 " STRING, " + COLS[3] + " STRING, " + COLS[4] + " STRING, " + COLS[5] +
                 " STRING, " + COLS[6] + " STRING, " + COLS[7] + " STRING, " + COLS[8] + " STRING,"
                 + COLS[9] + " STRING,"+ COLS[10] + " STRING,"+ COLS[11] + " STRING)";
 
         sqLiteDatabase.execSQL("create table " + MAIN_TABLE_NAME + colInit);
-
+        */
     }
 
     @Override
@@ -61,23 +61,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(MAIN_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
-    }
-
-    public void insertSample(ArrayList<Float[][]> samples, String gName) {
-        db.execSQL("create table if not exists " + gName + "(sample1 STRING)");
-        Cursor dbCursor = db.query(gName, null, null, null, null, null, null);
-        String colNum = "sample" + dbCursor.getColumnNames().length;
-        ContentValues cv = new ContentValues();
-        for(int i = 0; i < samples.size(); i++) {
-            for(int j = 0; j < samples.get(i).length; j++) {
-                for(int n = 0; n < samples.get(i)[j].length; n++) {
-                    cv.put(colNum, samples.get(i)[j][n]);
-                    System.out.println(samples.get(i)[j][n]);
-                    db.insert(gName, null, cv);
-                    cv = new ContentValues();
-                }
-            }
-        }
-        //db.insert(gName, null, cv);
     }
 }
