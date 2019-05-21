@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager = (android.hardware.SensorManager) getSystemService(Context.SENSOR_SERVICE);
         linear_acceleration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         rotVec = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
         sensorManager.registerListener(MainActivity.this,
@@ -68,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 rotVec, android.hardware.SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(MainActivity.this,
                 gravity, android.hardware.SensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(MainActivity.this,
-                gyro, android.hardware.SensorManager.SENSOR_DELAY_GAME);
     }
 
     /**
@@ -89,23 +86,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // If the sensor event was triggered by the accelerator, call checkMotion to play with it
+        // If the sensor event was triggered by the accelerator
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION ) {
             dataContainer[0][0] = event.values[0];
             dataContainer[0][1] = event.values[1];
             dataContainer[0][2] = event.values[2];
-        } // Else, if it was a gravity event, check for the orientation
-          // and change the state accordingly
+        } // Else, if it was a gravity event
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
             dataContainer[1][0] = event.values[0];
             dataContainer[1][1] = event.values[1];
             dataContainer[1][2] = event.values[2];
-        } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
-        else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            dataContainer[2][0] = event.values[0];
-            dataContainer[2][1] = event.values[1];
-            dataContainer[2][2] = event.values[2];
-        }
+        } // Else if the sensor was a Rotational Vector reading
         else if(event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
             dataContainer[3][0] = event.values[0];
             dataContainer[3][1] = event.values[1];
@@ -122,9 +113,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
 
+        //TODO Make the string dynamically change
+
         // Push to the database
-        gm.checkInput(dataContainer);
-        //dataContainer = new Float[4][3];
+        gm.checkInput(dataContainer, "Hello");
+
     }
 
     /**
@@ -166,9 +159,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void CreateNewMotion(View v) throws InterruptedException {
         isOn = false;
 
-        //waits for 2 seconds and beeps
-        TimeUnit.SECONDS.sleep(1);
+        //waits for 1 seconds and says go
+        long cTime = System.currentTimeMillis();
+        long tTime = cTime + 1000;
+
+        while(cTime < tTime) {
+            cTime = System.currentTimeMillis();
+        }
+
         b.saySomething("Go");
+
+        gm.toggleRecord();
+
+        cTime = System.currentTimeMillis();
+
+        tTime = cTime + 1000;
+
+        while(cTime < tTime) {
+            cTime = System.currentTimeMillis();
+        }
+
         gm.toggleRecord();
 
         /**
