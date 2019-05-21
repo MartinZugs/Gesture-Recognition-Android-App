@@ -31,14 +31,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // We just want to hold the long string to instantiate each table without having to
         // copy the same long line a bunch of times
-        /*
+
         String colInit = " (" + COLS[0] + " STRING, " + COLS[1] + " STRING, " + COLS[2] +
                 " STRING, " + COLS[3] + " STRING, " + COLS[4] + " STRING, " + COLS[5] +
                 " STRING, " + COLS[6] + " STRING, " + COLS[7] + " STRING, " + COLS[8] + " STRING,"
                 + COLS[9] + " STRING,"+ COLS[10] + " STRING,"+ COLS[11] + " STRING)";
 
         sqLiteDatabase.execSQL("create table " + MAIN_TABLE_NAME + colInit);
-        */
+
     }
 
     @Override
