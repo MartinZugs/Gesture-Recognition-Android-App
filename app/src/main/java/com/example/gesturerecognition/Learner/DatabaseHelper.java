@@ -2,6 +2,7 @@ package com.example.gesturerecognition.Learner;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
@@ -18,8 +19,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                             "rx","ry","rz"};
 
     private static final int CAP = 9;
-
-    private static String COLUMNS = "";
 
     SQLiteDatabase db;
 
@@ -65,15 +64,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertSample(ArrayList<Float[][]> samples, String gName) {
-        // Iterate through the data and make a bunch of columns for each data member
+        db.execSQL("create table if not exists " + gName);
+        Cursor dbCursor = db.query(gName, null, null, null, null, null, null);
+        int colNum = dbCursor.getColumnNames().length;
+        ContentValues cv = new ContentValues();
         for(int i = 0; i < samples.size(); i++) {
             for(int j = 0; j < samples.get(i).length; j++) {
                 for(int n = 0; n < samples.get(i)[j].length; n++) {
-                    COLUMNS += i + j + n + " STRING, ";
+                    cv.put(Integer.toString(colNum), samples.get(i)[j][n]);
                 }
             }
         }
-        db.execSQL("create table " + gName + COLUMNS);
-        System.out.println(COLUMNS);
+        db.insert(gName, null, cv);
     }
 }
