@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GestureManager {
 
     private DatabaseHelper db;
-    private ArrayList values;
+    private ArrayList<Float[][]> values;
     private boolean isRecording = false;
 
     public GestureManager(MainActivity a) {
