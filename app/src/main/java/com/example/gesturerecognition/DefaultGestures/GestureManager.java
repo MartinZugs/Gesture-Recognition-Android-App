@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GestureManager {
 
     private DatabaseHelper db;
-    private ArrayList<Float[][]> values;
+    private ArrayList<Float[][]> values = new ArrayList<>();
     private boolean isRecording = false;
 
     public GestureManager(MainActivity a) {
@@ -18,8 +18,12 @@ public class GestureManager {
     public void checkInput(Float[][] data, String gName) {
         // check each gesture object for patterns in the motion based on the incoming sensor input
         // or save to the database
-        if(isRecording) values.add(data);
+        if(isRecording == true) {
+            System.out.println("If");
+            values.add(data);
+        }
         else {
+            System.out.println("Else");
             if(!values.isEmpty())
             {
                 db.insertSample(values, gName);

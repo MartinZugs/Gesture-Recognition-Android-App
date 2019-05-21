@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * wants to create a new gesture
      */
     private GestureManager gm;
-    private Float[][] dataContainer = new Float[4][3];
+    private Float[][] dataContainer = new Float[3][3];
     private Beeper b;
 
     /**
@@ -98,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             dataContainer[1][2] = event.values[2];
         } // Else if the sensor was a Rotational Vector reading
         else if(event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-            dataContainer[3][0] = event.values[0];
-            dataContainer[3][1] = event.values[1];
-            dataContainer[3][2] = event.values[2];
+            dataContainer[2][0] = event.values[0];
+            dataContainer[2][1] = event.values[1];
+            dataContainer[2][2] = event.values[2];
         }
 
 
@@ -171,15 +171,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         gm.toggleRecord();
 
-        cTime = System.currentTimeMillis();
+        Thread thread = new Thread(){
+            public void run(){
+                long cTime = System.currentTimeMillis();
+                long tTime = cTime + 1000;
 
-        tTime = cTime + 1000;
+                while(cTime < tTime) {
+                    cTime = System.currentTimeMillis();
+                }
+                gm.toggleRecord();
+            }
+        };
+        thread.start();
 
-        while(cTime < tTime) {
-            cTime = System.currentTimeMillis();
-        }
-
-        gm.toggleRecord();
+        isOn = true;
 
         /**
          * TODO: switch to a new page
