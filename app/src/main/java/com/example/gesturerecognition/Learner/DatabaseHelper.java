@@ -78,11 +78,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for(int j = 0; j < samples.get(i).length; j++) {
                 for(int n = 0; n < samples.get(i)[j].length; n++) {
                     cv.put(colNum, samples.get(i)[j][n]);
-                    db.insert(gName, null, cv);
-                    cv = new ContentValues();
                 }
             }
         }
+        db.insert(gName, null, cv);
+        cv = new ContentValues();
         inc ++;
     }
 }
