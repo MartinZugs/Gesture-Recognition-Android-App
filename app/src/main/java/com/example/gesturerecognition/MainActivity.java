@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // A state machine to call each of the motion functions
     private StateMachine sm;
 
+    private float ax, ay, az;
+
     // isOn toggles whether the user wants to read their data currently or not.
     // Triggered by a button push
     private boolean isOn = true;
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
+            ax = event.values[0];
+            ay = event.values[1];
+            ax = event.values[2];
             checkMotion(event.values[0], event.values[1], event.values[2]);
         } // Else, if it was a gravity event, check for the orientation
         // and change the state accordingly
@@ -76,13 +81,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 sm.toUpright();
             }
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
-        /*else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+        /*if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
             if(x > 1 || z > 1 || y > 1 || x < -1 || z < -1 || y < -1) {
                 isOn = false;
-            } else isOn = true;
+            } else if(ax < 3 || ax > - 3.0 && az < 3 || az > - 3.0 && ay < 3 || ay > - 3.0) {
+                isOn = true;
+            }
         }*/
     }
 
@@ -154,5 +161,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         super.onStop();
         finish();
+        isOn = false;
     }
 }
