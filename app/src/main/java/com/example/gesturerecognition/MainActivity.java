@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
         /*else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            x = event.values[0];
-            y = event.values[1];
-            z = event.values[2];
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
             if(x > .5 || z > .5 || y > .5 || x < -.5 || z < -.5 || y < -.5) {
                 isOn = false;
             } else isOn = true;
