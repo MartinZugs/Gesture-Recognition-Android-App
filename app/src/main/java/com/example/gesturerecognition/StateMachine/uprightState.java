@@ -1,23 +1,19 @@
 package com.example.gesturerecognition.StateMachine;
 
+import com.example.gesturerecognition.R;
+
 public class uprightState implements State {
 
     private StateMachine sm;
 
-    public uprightState(final StateMachine sm) { this.sm = sm; }
+    uprightState(final StateMachine sm) { this.sm = sm; }
 
     @Override
-    public void x_move() {
-        sm.getBeeper().saySomething("Hello");
-    }
+    public void x_move() { sm.say(sm.getContext().getString(R.string.upright_x)); }
 
     @Override
-    public void y_move() {
-        sm.getBeeper().saySomething("Yes");
-    }
+    public void y_move() { sm.say(sm.getContext().getString(R.string.upright_x)); }
 
     @Override
-    public void z_move() {
-        sm.getBeeper().saySomething("Goodbye");
-    }
+    public void z_move() { sm.say(sm.getContext().getString(R.string.upright_x)); }
 }

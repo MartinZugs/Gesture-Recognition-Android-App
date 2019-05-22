@@ -1,7 +1,9 @@
 package com.example.gesturerecognition.StateMachine;
 
-import com.example.gesturerecognition.Beeper;
+import com.example.gesturerecognition.MainActivity;
+import com.example.gesturerecognition.Speaker;
 import android.app.Activity;
+import android.content.Context;
 
 public class StateMachine {
 
@@ -11,10 +13,12 @@ public class StateMachine {
     private State ONFRONT = new onFrontState(this);
     private State UPRIGHT = new uprightState(this);
 
-    private Beeper beeper;
+    private Speaker speaker;
+    private MainActivity a;
 
-    public StateMachine(Activity a) {
-        try { beeper = new Beeper(a); } catch(Exception e) {}
+    public StateMachine(MainActivity a) {
+        this.a = a;
+        speaker = new Speaker(this.a);
     }
 
     public void toBack() { this.state = ONBACK; }
@@ -25,5 +29,8 @@ public class StateMachine {
     public void y_move() { this.state.y_move(); }
     public void z_move() { this.state.z_move(); }
 
-    public Beeper getBeeper() { return this.beeper; }
+    public boolean isPlaying() { return this.speaker.isPlaying(); }
+    void say(String s) { this.speaker.saySomething(s); }
+
+    Context getContext() { return this.a.getApplicationContext(); }
 }

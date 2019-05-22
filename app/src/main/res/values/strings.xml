@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Gesture Recognition</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+    <string name="upright_x">Hello</string>
+    <string name="upright_y">Yes</string>
+    <string name="upright_z">No</string>
+    <string name="onback_x">I don\'t care</string>
+    <string name="onback_y">Here you go</string>
+    <string name="onback_z">I don\'t know</string>
+    <string name="onfront_x">No</string>
+    <string name="onfront_y">That one</string>
+    <string name="onfront_z">Come here</string>
 </resources>
