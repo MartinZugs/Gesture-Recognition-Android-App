@@ -11,6 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import com.example.gesturerecognition.StateMachine.StateMachine;
 
+import org.w3c.dom.Document;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     // A state machine to call each of the motion functions
@@ -121,6 +129,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void settings(View v) {
         setContentView(R.layout.settings);
+    }
+
+    public void update_gestures(View v) {
+        setContentView(R.layout.update_gestures);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse();
+    }
+
+    private File getXML(String fileName) {
+        try {
+            this.getApplicationContext().openFileInput("MyFileName.xml");
+        } catch (FileNotFoundException e) { System.out.println(e); }
     }
 
     /**
