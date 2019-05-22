@@ -50,4 +50,16 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <EditText
+        android:id="@+id/input-text"
+        android:layout_width="253dp"
+        android:layout_height="46dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="560dp"
+        android:text="Hello"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
