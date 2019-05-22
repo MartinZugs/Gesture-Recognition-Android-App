@@ -7,6 +7,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+/**
+ * DATABASEHELPER DOCUMENTATION
+ *
+ * DatabaseHelper is an extension of the SQLiteOpenHelper, and as such, is intended to make
+ * saving to the database easier for our specific use.  In the case of this application, we
+ * will be saving all of the sensor data to the database whenever the user wants to record
+ * a new gesture.  Similarly, we want it to be easy to read data from all databases while
+ * listening for gestures.  This implementation of the database helper will allow us to do
+ * such by doing these things:
+ * - Create a new database file for every gesture
+ * - Every database has a large corpus of tables, containing the data from a single sample
+ *      of the gesture.
+ * - Each table contains 9 columns: 3 for accelerometer readings, 3 for rotation, 3 for gravity.
+ * - TODO: explain how we will implement the reading of data in an efficient way
+ */
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String[] COLS = {  "ax", "ay", "az",
@@ -24,12 +40,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) { onCreate(db); }
 
+    /**
+     * Open an existing database for reading
+     *
+     * @param path - The path to the database file to be read
+     */
     public void openDataBase(String path) {
          this.db = SQLiteDatabase.openDatabase(path, null, 0);
     }
 
+    /**
+     * Create a new database when the user adds a new gesture
+     *
+     * @param name - The name of the gesture
+     *             TODO: change the name of the newly created database
+     */
     public void createNewDB(String name) { db = this.getWritableDatabase(); }
 
+    /**
+     * Insert a new data point to the current database
+     *
+     * @param sensorData - A 3x3 2D array of each sensor reading
+     * @return boolean - Determines if the insertion succeeded or not
+     */
     public boolean insertData(Float[][] sensorData) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLS[0], sensorData[0][0]);
