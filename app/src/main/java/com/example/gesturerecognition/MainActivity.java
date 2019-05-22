@@ -76,14 +76,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 sm.toUpright();
             }
         } // Else if the sensor was a gyroscope reading, change the isOn variable accordingly
-        else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+        /*else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
             if(x > 1 || z > 1 || y > 1 || x < -1 || z < -1 || y < -1) {
                 isOn = false;
             } else isOn = true;
-        }
+        }*/
     }
 
     /**
@@ -132,13 +132,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 2 || ax < -2) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
+        if ((ax > 3 || ax < -3) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
             sm.x_move();
         }
-        else if ((az > 2 || az < -2) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
+        else if ((az > 3 || az < -3) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
             sm.z_move();
         }
-        else if ((ay > 2 || ay < -2) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
+        else if ((ay > 3 || ay < -3) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
             sm.y_move();
         }
     }
