@@ -1,6 +1,7 @@
 package com.example.gesturerecognition;
 
 import android.content.Context;
+import android.content.res.XmlResourceParser;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -112,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void changeUpdate(View v) {
         setContentView(R.layout.update_gestures);
-        int ug = R.layout.update_gestures;
+        XmlResourceParser page = this.getResources().getLayout(R.layout.update_gestures);
+        int gestureNames = R.array.gestures;
+        System.out.println(page.getIdAttribute());
 
     }
 

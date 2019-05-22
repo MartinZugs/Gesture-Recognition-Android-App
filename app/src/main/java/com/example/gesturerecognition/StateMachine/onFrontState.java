@@ -1,25 +1,31 @@
 package com.example.gesturerecognition.StateMachine;
 
+import android.content.res.Resources;
+
 import com.example.gesturerecognition.R;
 
 public class onFrontState implements State {
 
-    private StateMachine sm;
+    onFrontState(final StateMachine sm) {
+        this.sm = sm;
+        resources = sm.getContext().getResources();
+    }
 
-    onFrontState(final StateMachine sm) { this.sm = sm; }
+    private final StateMachine sm;
+    private final Resources resources;
 
     @Override
     public void x_move() {
-        sm.say(sm.getContext().getString(R.string.onfront_x));
+        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.onfront_x)]);
     }
 
     @Override
     public void y_move() {
-        sm.say(sm.getContext().getString(R.string.onfront_y));
+        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.onfront_y)]);
     }
 
     @Override
     public void z_move() {
-        sm.say(sm.getContext().getString(R.string.onfront_z));
+        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.onfront_z)]);
     }
 }

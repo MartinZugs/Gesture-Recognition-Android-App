@@ -1,19 +1,31 @@
 package com.example.gesturerecognition.StateMachine;
 
+import android.content.res.Resources;
+
 import com.example.gesturerecognition.R;
 
 public class uprightState implements State {
 
-    private StateMachine sm;
+    uprightState(final StateMachine sm) {
+        this.sm = sm;
+        resources = sm.getContext().getResources();
+    }
 
-    uprightState(final StateMachine sm) { this.sm = sm; }
-
-    @Override
-    public void x_move() { sm.say(sm.getContext().getString(R.string.upright_x)); }
-
-    @Override
-    public void y_move() { sm.say(sm.getContext().getString(R.string.upright_x)); }
+    private final StateMachine sm;
+    private final Resources resources;
 
     @Override
-    public void z_move() { sm.say(sm.getContext().getString(R.string.upright_x)); }
+    public void x_move() {
+        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.upright_x)]);
+    }
+
+    @Override
+    public void y_move() {
+        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.upright_y)]);
+    }
+
+    @Override
+    public void z_move() {
+        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.upright_z)]);
+    }
 }
