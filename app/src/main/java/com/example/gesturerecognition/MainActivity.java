@@ -114,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void changeUpdate(View v) {
         setContentView(R.layout.update_gestures);
         XmlResourceParser page = this.getResources().getLayout(R.layout.update_gestures);
-        int gestureNames = R.array.gestures;
-        System.out.println(page.getIdAttribute());
-
+        String[] gestureNames = getResources().getStringArray(R.array.gestures);
+        
+        System.out.println(gestureNames.length);
     }
 
     public void changeMain(View v) {
