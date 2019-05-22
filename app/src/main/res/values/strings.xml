@@ -3,15 +3,15 @@
     <string name="off">Off</string>
     <string name="on">On</string>
     <string-array name="gestures">
-        <string>Hello</string>
-        <string>Yes</string>
-        <string>No</string>
-        <string>I don\'t care</string>
-        <string>Here you go</string>
-        <string>I don\'t know</string>
-        <string>No</string>
-        <string>That one</string>
-        <string>Come here</string>
+        <item>Hello</item>
+        <item>Yes</item>
+        <item>No</item>
+        <item>I don\'t care</item>
+        <item>Here you go</item>
+        <item>I don\'t know</item>
+        <item>No</item>
+        <item>That one</item>
+        <item>Come here</item>
     </string-array>
     <integer name="upright_x">0</integer>
     <integer name="upright_y">1</integer>
@@ -22,6 +22,8 @@
     <integer name="onfront_x">6</integer>
     <integer name="onfront_y">7</integer>
     <integer name="onfront_z">8</integer>
+
+    <string name="settings">Settings</string>
     <string name="cancel">Cancel</string>
     <string name="motion">motion</string>
     <string name="restore_to_default">Restore to default</string>
