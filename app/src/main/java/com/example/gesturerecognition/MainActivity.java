@@ -109,6 +109,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    // Starting the display code
+    public void changeLogo(View v)
+    {
+        setContentView(R.layout.logo);
+    }
+
+    public void changeSettings(View v)
+    {
+        setContentView(R.layout.settings);
+    }
+
+    public void changeUpdate(View v)
+    {
+        setContentView(R.layout.update_gestures);
+    }
+
+    public void changeMain(View v)
+    {
+        setContentView(R.layout.activity_main);
+    }
+
+
+
     /**
      * Check the motion of each axis when there is an acceleration event
      * If there is extraneous x movement, call x_move on the state machine
