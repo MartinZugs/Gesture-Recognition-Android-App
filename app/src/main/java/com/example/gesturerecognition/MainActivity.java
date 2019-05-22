@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         // Typical android setup stuff
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.logo);
 
         // Instantiate the StateMachine
         sm = new StateMachine(this);
@@ -100,6 +100,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             b.setText(R.string.on);
         }
     }
+
+    // Starting the display code
+    public void changeScreen(View v)
+    {
+        setContentView(R.layout.activity_learn);
+    }
+
 
     /**
      * Check the motion of each axis when there is an acceleration event
