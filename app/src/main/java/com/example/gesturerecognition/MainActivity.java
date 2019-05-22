@@ -11,14 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import com.example.gesturerecognition.StateMachine.StateMachine;
 
-import org.w3c.dom.Document;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     // A state machine to call each of the motion functions
@@ -110,23 +102,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     // Starting the display code
-    public void changeLogo(View v)
-    {
+    public void changeLogo(View v) {
         setContentView(R.layout.logo);
     }
 
-    public void changeSettings(View v)
-    {
+    public void changeSettings(View v) {
         setContentView(R.layout.settings);
     }
 
-    public void changeUpdate(View v)
-    {
+    public void changeUpdate(View v) {
         setContentView(R.layout.update_gestures);
+        int ug = R.layout.update_gestures;
+
     }
 
-    public void changeMain(View v)
-    {
+    public void changeMain(View v) {
         setContentView(R.layout.activity_main);
     }
 
@@ -148,23 +138,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else if ((ay > 2.5 || ay < -2.5) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
             sm.y_move();
         }
-    }
-
-    public void settings(View v) {
-        setContentView(R.layout.settings);
-    }
-
-    public void update_gestures(View v) {
-        setContentView(R.layout.update_gestures);
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse();
-    }
-
-    private File getXML(String fileName) {
-        try {
-            this.getApplicationContext().openFileInput("MyFileName.xml");
-        } catch (FileNotFoundException e) { System.out.println(e); }
     }
 
     /**

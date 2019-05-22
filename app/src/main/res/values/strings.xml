@@ -2,13 +2,19 @@
     <string name="app_name">Gesture Recognition</string>
     <string name="off">Off</string>
     <string name="on">On</string>
-    <string name="upright_x">Hello</string>
-    <string name="upright_y">Yes</string>
-    <string name="upright_z">No</string>
-    <string name="onback_x">I don\'t care</string>
-    <string name="onback_y">Here you go</string>
-    <string name="onback_z">I don\'t know</string>
-    <string name="onfront_x">No</string>
-    <string name="onfront_y">That one</string>
-    <string name="onfront_z">Come here</string>
+    <string-array name="gestures">
+        <string name="upright_x">Hello</string>
+        <string name="upright_y">Yes</string>
+        <string name="upright_z">No</string>
+        <string name="onback_x">I don\'t care</string>
+        <string name="onback_y">Here you go</string>
+        <string name="onback_z">I don\'t know</string>
+        <string name="onfront_x">No</string>
+        <string name="onfront_y">That one</string>
+        <string name="onfront_z">Come here</string>
+    </string-array>
+    <string name="cancel">Cancel</string>
+    <string name="motion">motion</string>
+    <string name="restore_to_default">Restore to default</string>
+    <string name="save_changes">Save changes</string>
 </resources>
