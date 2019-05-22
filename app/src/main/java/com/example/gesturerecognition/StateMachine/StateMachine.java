@@ -9,17 +9,20 @@ public class StateMachine {
 
     private State state;
 
-    private State ONBACK = new onBackState(this);
-    private State ONFRONT = new onFrontState(this);
-    private State UPRIGHT = new uprightState(this);
-
     private Speaker speaker;
     private MainActivity a;
 
     public StateMachine(MainActivity a) {
         this.a = a;
         speaker = new Speaker(this.a);
+        ONBACK = new onBackState(this);
+        ONFRONT = new onFrontState(this);
+        UPRIGHT = new uprightState(this);
     }
+
+    private final State ONBACK;
+    private final State ONFRONT;
+    private final State UPRIGHT;
 
     public void toBack() { this.state = ONBACK; }
     public void toFront() { this.state = ONFRONT; }
