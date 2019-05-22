@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
 import com.example.gesturerecognition.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -18,39 +16,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // A state machine to call each of the motion functions
     private StateMachine sm;
 
-    // Instantiate a sensorManager service to handle each sensor
-    private SensorManager sensorManager;
-    private Sensor linear_acceleration, gravity, gyro;
-
     // isOn toggles whether the user wants to read their data currently or not.
     // Triggered by a button push
     private boolean isOn = true;
-    // x, y, and z are changed with every event call on the sensors, and they change dynamically
-    // to do different functions based on the current event call
-    // they will either be accelerometer readings, gravity readings, or gyroscope readings
-    private float x = 0;
-    private float y = 0;
-    private float z = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Typical android setup stuff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Instantiate the StateMachine
-        sm = new StateMachine((MainActivity)this);
+        sm = new StateMachine(this);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        linear_acceleration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
-        gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor linear_acceleration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        Sensor gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+        Sensor gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensorManager.registerListener(MainActivity.this, linear_acceleration, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(MainActivity.this, gravity, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(MainActivity.this, gyro, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+    /**
+     * This function needs to be here to prevent the super method from doing something weird
+     */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
@@ -59,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      *  - Called every time one of the sensors detects an event
      *  - Either an acceleration, gravity, or gyroscope event
      *  - Use the given value to change state or call function
-     * @param event
+     * @param event - the event object containing the sensor data
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -70,9 +62,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } // Else, if it was a gravity event, check for the orientation
         // and change the state accordingly
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
-            x = event.values[0];
-            y = event.values[1];
-            z = event.values[2];
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
             if(z > 8.0 && z > y && z > x) {
                 sm.toBack();
             }
@@ -95,37 +87,46 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     /**
      * Toggles the on/off button which determines if the user wants to be talking currently
-     * @param v
+     * @param v - the view of the event call from the button press
      */
     public void toggleOnOff(View v) {
-        Button b = (Button)findViewById(R.id.OnOff);
+        Button b = findViewById(R.id.OnOff);
         if(isOn) {
             isOn = false;
-            b.setText("Off");
+            b.setText(R.string.off);
         }
         else {
             isOn = true;
-            b.setText("On");
+            b.setText(R.string.on);
         }
     }
 
+    /**
+     * Check the motion of each axis when there is an acceleration event
+     * If there is extraneous x movement, call x_move on the state machine
+     * So on an so forth for each other axes.
+     */
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 2.5 || ax < -2.5) && !(sm.getBeeper().isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
+        if ((ax > 2.5 || ax < -2.5) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
             sm.x_move();
         }
-        else if ((az > 2.5 || az < -2.5) && !(sm.getBeeper().isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
+        else if ((az > 2.5 || az < -2.5) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
             sm.z_move();
         }
-        else if ((ay > 2.5 || ay < -2.5) && !(sm.getBeeper().isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
+        else if ((ay > 2.5 || ay < -2.5) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
             sm.y_move();
         }
     }
 
-    public void CreateNewMotion(View v) {
-
+    public void settings(View v) {
+        setContentView(R.layout.settings);
     }
 
+    /**
+     * When the app is paused, stop all functionality so the beeper doesn't make any random noises
+     * in the background
+     */
     @Override
     public void onPause(){
         super.onPause();

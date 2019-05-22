@@ -1,23 +1,25 @@
 package com.example.gesturerecognition.StateMachine;
 
+import com.example.gesturerecognition.R;
+
 public class onFrontState implements State {
 
     private StateMachine sm;
 
-    public onFrontState(final StateMachine sm) { this.sm = sm; }
+    onFrontState(final StateMachine sm) { this.sm = sm; }
 
     @Override
     public void x_move() {
-        sm.getBeeper().saySomething("No");
+        sm.say(sm.getContext().getString(R.string.onfront_x));
     }
 
     @Override
     public void y_move() {
-        sm.getBeeper().saySomething("That one");
+        sm.say(sm.getContext().getString(R.string.onfront_y));
     }
 
     @Override
     public void z_move() {
-        sm.getBeeper().saySomething("Come here");
+        sm.say(sm.getContext().getString(R.string.onfront_z));
     }
 }

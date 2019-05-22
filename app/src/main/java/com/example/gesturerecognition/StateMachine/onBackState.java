@@ -1,23 +1,23 @@
 package com.example.gesturerecognition.StateMachine;
 
+import com.example.gesturerecognition.R;
+
 public class onBackState implements State {
 
     private StateMachine sm;
 
-    public onBackState(final StateMachine sm) { this.sm = sm; }
+    onBackState(final StateMachine sm) { this.sm = sm; }
 
     @Override
-    public void x_move() {
-        sm.getBeeper().saySomething("I don't care");
-    }
+    public void x_move() { sm.say(sm.getContext().getString(R.string.onback_x)); }
 
     @Override
     public void y_move() {
-        sm.getBeeper().saySomething("Here you go");
+        sm.say(sm.getContext().getString(R.string.onback_y));
     }
 
     @Override
     public void z_move() {
-        sm.getBeeper().saySomething("I don't know");
+        sm.say(sm.getContext().getString(R.string.onback_z));
     }
 }
