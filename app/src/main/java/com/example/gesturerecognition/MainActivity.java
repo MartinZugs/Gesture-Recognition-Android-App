@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         // Typical android setup stuff
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.logo);
+        setContentView(R.layout.activity_main);
 
         // Instantiate the StateMachine
         sm = new StateMachine(this);
@@ -102,10 +102,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     // Starting the display code
-    public void changeScreen(View v)
+    public void changeLogo(View v)
     {
-        setContentView(R.layout.activity_learn);
+        setContentView(R.layout.logo);
     }
+
+    public void changeSettings(View v)
+    {
+        setContentView(R.layout.settings);
+    }
+
+    public void changeUpdate(View v)
+    {
+        setContentView(R.layout.update_gestures);
+    }
+
+    public void changeMain(View v)
+    {
+        setContentView(R.layout.activity_main);
+    }
+
 
 
     /**
