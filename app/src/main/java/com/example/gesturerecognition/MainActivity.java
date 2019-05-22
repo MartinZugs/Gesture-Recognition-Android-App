@@ -121,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void changeMain(View v) {
         setContentView(R.layout.activity_main);
+        Button b = findViewById(R.id.OnOff);
+        if(!isOn) b.setText(R.string.off);
     }
 
 

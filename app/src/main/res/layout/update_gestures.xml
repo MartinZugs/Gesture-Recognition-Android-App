@@ -23,7 +23,7 @@
         android:layout_width="373dp"
         android:layout_height="294dp"
         android:layout_marginTop="80dp"
-        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,6 +40,7 @@
                 android:layout_height="45dp"
                 android:inputType="text"
                 android:text=""
+                android:layout_marginTop="10dp"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -51,8 +52,6 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:contentDescription="@string/motion"
-                app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
