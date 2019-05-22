@@ -1,16 +1,28 @@
 package com.example.gesturerecognition;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.example.gesturerecognition.StateMachine.StateMachine;
+
+import static android.text.InputType.TYPE_CLASS_TEXT;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -111,11 +123,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.settings);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void changeUpdate(View v) {
         setContentView(R.layout.update_gestures);
-        XmlResourceParser page = this.getResources().getLayout(R.layout.update_gestures);
         String[] gestureNames = getResources().getStringArray(R.array.gestures);
-        
+        LinearLayout LL = findViewById(R.id.LL);
+        EditText et = new EditText(this);
+        ImageView iv = new ImageView(this);
+        //TODO: iterate through each string and create a new thingy
+        for(int i = 0; i < gestureNames.length; i++) {
+            et.setText(gestureNames[i]);
+            et.setWidth(600);
+            et.setHeight(150);
+            et.setInputType(TYPE_CLASS_TEXT);
+            iv.setImageAlpha(R.raw.wave);
+            iv.setMaxWidth(150);
+            iv.setMaxHeight(150);
+            LL.addView(et);
+            LL.addView(iv);
+
+            // re-instantiate the elements to be iterated once more
+            et = new EditText(this);
+            iv = new ImageView(this);
+        }
         System.out.println(gestureNames.length);
     }
 
