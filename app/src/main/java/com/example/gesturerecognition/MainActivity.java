@@ -32,8 +32,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Instantiate the StateMachine
+        // Instantiate the StateMachine and the Transition handler
         sm = new StateMachine(this);
+        transition = new TransitionHandler(this);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void toUpdateGesture(View v) {
+        transition.toUpdateGesture();
     }
 
     public void changeMain(View v) {

@@ -28,4 +28,6 @@
     <string name="motion">motion</string>
     <string name="restore_to_default">Restore to default</string>
     <string name="save_changes">Save changes</string>
+    <string name="change_gesture">Change Gesture</string>
+    <string name="back">Back</string>
 </resources>
