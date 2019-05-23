@@ -16,16 +16,16 @@ public class onFrontState implements State {
 
     @Override
     public void x_move() {
-        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.onfront_x)]);
+        sm.say("onfront_x");
     }
 
     @Override
     public void y_move() {
-        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.onfront_y)]);
+        sm.say("onfront_y");
     }
 
     @Override
     public void z_move() {
-        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.onfront_z)]);
+        sm.say("onfront_z");
     }
 }

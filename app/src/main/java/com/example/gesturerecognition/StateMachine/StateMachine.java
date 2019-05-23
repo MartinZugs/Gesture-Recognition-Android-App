@@ -37,12 +37,10 @@ public class StateMachine {
     public void z_move() { this.state.z_move(); }
 
     public boolean isPlaying() { return this.speaker.isPlaying(); }
-    void say(String s) { this.speaker.saySomething(s); }
+    void say(String s) {
+        String[] names = this.db.getNames();
+        for(String name : names) if(name == s) speaker.saySomething(name);
+    }
 
     Context getContext() { return this.a.getApplicationContext(); }
-    String getDataBaseInfo(String info) {
-        String[] names = this.db.getNames();
-        for(String name : names) if(name == info) return name;
-        return null;
-    }
 }

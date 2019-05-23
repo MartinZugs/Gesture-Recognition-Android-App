@@ -16,16 +16,16 @@ public class uprightState implements State {
 
     @Override
     public void x_move() {
-        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.upright_x)]);
+        sm.say("upright_x");
     }
 
     @Override
     public void y_move() {
-        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.upright_y)]);
+        sm.say("upright_y");
     }
 
     @Override
     public void z_move() {
-        sm.say(resources.getStringArray(R.array.gestures)[resources.getInteger(R.integer.upright_z)]);
+        sm.say("upright_z");
     }
 }
