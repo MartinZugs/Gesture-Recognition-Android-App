@@ -130,7 +130,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(!isOn) b.setText(R.string.off);
     }
 
-
+    public void saveGes(View v) {
+        transition.saveGesture();
+    }
 
     /**
      * Check the motion of each axis when there is an acceleration event
