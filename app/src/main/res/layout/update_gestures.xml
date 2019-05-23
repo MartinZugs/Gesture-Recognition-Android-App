@@ -37,6 +37,10 @@
             android:layout_marginLeft="5dp"
             android:orientation="vertical">
 
+            <!-- Here is where we dynamically add
+                each element to be shown.
+                see MainActivity.changeUpdate-->
+
         </LinearLayout>
 
     </ScrollView>

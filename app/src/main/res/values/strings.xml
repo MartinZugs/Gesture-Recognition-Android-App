@@ -13,7 +13,7 @@
         <item>That one</item>
         <item>Come here</item>
     </string-array>
-    <integer name="upright_x">0</integer>
+
     <integer name="upright_y">1</integer>
     <integer name="upright_z">2</integer>
     <integer name="onback_x">3</integer>

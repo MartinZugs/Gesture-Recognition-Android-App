@@ -1,40 +1,26 @@
 package com.example.gesturerecognition;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.example.gesturerecognition.StateMachine.StateMachine;
-
-import java.io.InputStream;
-
-import static android.text.InputType.TYPE_CLASS_TEXT;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     // A state machine to call each of the motion functions
     private StateMachine sm;
 
-    private float ax, ay, az;
+    // A transition handler to deal with the complexities of switching between pages
+    // and dynamically adding, subtracting, or saving values
+    private TransitionHandler transition;
 
     // isOn toggles whether the user wants to read their data currently or not.
     // Triggered by a button push
@@ -78,9 +64,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // If the sensor event was triggered by the accelerator, call checkMotion to play with it
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION && isOn) {
-            ax = event.values[0];
-            ay = event.values[1];
-            ax = event.values[2];
             checkMotion(event.values[0], event.values[1], event.values[2]);
         } // Else, if it was a gravity event, check for the orientation
         // and change the state accordingly
@@ -143,67 +126,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @param v - the view of the button which was pressed
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void changeUpdate(View v) {
-        // Change the view over to the gesture update page
-        setContentView(R.layout.update_gestures);
-
-        // Gather the static array containing all of the gesture names
-        String[] gestureNames = getResources().getStringArray(R.array.gestures);
-
-        // Get the container in which we will be placing all of the children
-        LinearLayout LL = findViewById(R.id.LL);
-
-        // create a new container to hold the text box and the picture in horizontally
-        LinearLayout container = new LinearLayout(this);
-        container.setOrientation(LinearLayout.HORIZONTAL);
-
-        // Create a text input element and an image element for each gesture GUI element
-        EditText et = new EditText(this);
-        ImageView iv = new ImageView(this);
-
-        // create a layout parameter to dynamically change the margin with each addition of an element
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        int margin = 0;
-
-        // Iterate through each gesture name, create and append a new GUI child onto the parent
-        for (String gestureName : gestureNames) {
-            // set the new margins
-            lp.setMargins(0, margin, 0, 0);
-            // dynamically create the new text and image elements
-            et.setText(gestureName);
-            et.setWidth(650);
-            et.setHeight(150);
-            et.setTextSize(TypedValue.COMPLEX_UNIT_PX, 60);
-            et.setInputType(TYPE_CLASS_TEXT);
-            et.setLayoutParams(lp);
-
-            lp.setMargins(10, margin, 0, 0);
-            iv.setLayoutParams(lp);
-            iv.setImageBitmap(getBitMap(gestureName));
-            iv.setAdjustViewBounds(true);
-            iv.setMaxWidth(100);
-            iv.setMaxHeight(100);
-
-            // Add our newly created elements onto the linear layout parent then add that to
-            // the xml layout
-            container.addView(et);
-            container.addView(iv);
-            LL.addView(container);
-
-            // re-instantiate the elements to be iterated once more
-            et = new EditText(this);
-            iv = new ImageView(this);
-            container = new LinearLayout(this);
-
-            margin += 5;
-        }
-    }
-
-    private Bitmap getBitMap(String gName) {
-        // TODO: import all of the cartoon gesture samples, and grab them based on the name
-        //       called in this function
-        InputStream rawFile = getResources().openRawResource(R.raw.wave);
-        return BitmapFactory.decodeStream(rawFile);
+    public void toUpdateGesture(View v) {
     }
 
     public void changeMain(View v) {
