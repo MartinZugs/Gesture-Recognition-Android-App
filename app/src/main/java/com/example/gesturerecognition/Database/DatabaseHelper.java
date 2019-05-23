@@ -5,47 +5,62 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.gesturerecognition.R;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String[] COLS = {  "ax", "ay", "az",
-                                            "gx", "gy", "gz",
-                                            "rx","ry","rz"};
+    private static final String DATABASE_NAME = "gesture_names.db";
+    private static final String TABLE_NAME = "gesture_names";
+    private static final String GESTURES = "gestures";
+    private static final String WORDS = "words";
 
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
+    private Context c;
 
     public DatabaseHelper(Context context, String initialDB) {
         super(context, initialDB, null, 1);
+        this.c = context;
+        this.db = getWritableDatabase();
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) { this.db = db; }
+    public void onCreate(SQLiteDatabase db) {
+        // All we need is a table with 2 columns.  One to hold the gesture names, and one
+        // to hold the words that the gestures represent
+        db.execSQL("create table " + TABLE_NAME +
+                "(" + GESTURES + " STRING, " + WORDS + " STRING)");
+    }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) { onCreate(db); }
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+    }
 
 
     /**
      * Insert a new data point to the current database
      *
-     * @param sensorData - A 3x3 2D array of each sensor reading
+     * @param names - The array of names to be written over the current names in the database
      * @return boolean - Determines if the insertion succeeded or not
      */
-    public boolean insertData(Float[][] sensorData) {
+    public boolean insertNames(String[] names) {
+        String[] gestureNames = c.getResources().getStringArray(R.array.gestures);
+        if(gestureNames.length != names.length) return false;
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLS[0], sensorData[0][0]);
-        contentValues.put(COLS[1], sensorData[0][1]);
-        contentValues.put(COLS[2], sensorData[0][2]);
-        contentValues.put(COLS[3], sensorData[1][0]);
-        contentValues.put(COLS[4], sensorData[1][1]);
-        contentValues.put(COLS[5], sensorData[1][2]);
-        contentValues.put(COLS[6], sensorData[2][0]);
-        contentValues.put(COLS[7], sensorData[2][1]);
-        contentValues.put(COLS[8], sensorData[2][2]);
+        for(int i = 0; i < names.length; i++) {
+            contentValues.put(GESTURES, gestureNames[i]);
+        }
         /*
         long result = db.insert(MAIN_TABLE_NAME, null, contentValues);
         if(result == -1) return false;
         else return true;
         */
         return true;
+    }
+
+    public String[] getNames() {
+        String[] names = {"s"};
+        return names;
     }
 }
