@@ -135,53 +135,73 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.settings);
     }
 
+    /**
+     * Switch over to the page where the user can change the word/phrase they want to say
+     * with each gesture.  Instead of hardcoding each one in, we iterate through each gesture
+     * name in our string resource, and dynamically add text inputs and pictures
+     *
+     * @param v - the view of the button which was pressed
+     */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void changeUpdate(View v) {
         // Change the view over to the gesture update page
         setContentView(R.layout.update_gestures);
+
         // Gather the static array containing all of the gesture names
         String[] gestureNames = getResources().getStringArray(R.array.gestures);
+
         // Get the container in which we will be placing all of the children
         LinearLayout LL = findViewById(R.id.LL);
+
+        // create a new container to hold the text box and the picture in horizontally
+        LinearLayout container = new LinearLayout(this);
+        container.setOrientation(LinearLayout.HORIZONTAL);
+
         // Create a text input element and an image element for each gesture GUI element
         EditText et = new EditText(this);
         ImageView iv = new ImageView(this);
+
         // create a layout parameter to dynamically change the margin with each addition of an element
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int margin = 0;
+
         // Iterate through each gesture name, create and append a new GUI child onto the parent
         for (String gestureName : gestureNames) {
             // set the new margins
             lp.setMargins(0, margin, 0, 0);
             // dynamically create the new text and image elements
             et.setText(gestureName);
-            et.setWidth(600);
+            et.setWidth(650);
             et.setHeight(150);
             et.setTextSize(TypedValue.COMPLEX_UNIT_PX, 60);
             et.setInputType(TYPE_CLASS_TEXT);
             et.setLayoutParams(lp);
 
+            lp.setMargins(10, margin, 0, 0);
             iv.setLayoutParams(lp);
             iv.setImageBitmap(getBitMap(gestureName));
             iv.setAdjustViewBounds(true);
             iv.setMaxWidth(100);
             iv.setMaxHeight(100);
 
-            // Add our newly created elements onto the linear layout parent
-            LL.addView(et);
-            LL.addView(iv);
+            // Add our newly created elements onto the linear layout parent then add that to
+            // the xml layout
+            container.addView(et);
+            container.addView(iv);
+            LL.addView(container);
 
             // re-instantiate the elements to be iterated once more
             et = new EditText(this);
             iv = new ImageView(this);
+            container = new LinearLayout(this);
 
-            // Increment the margin by 160
-            margin += 3;
+            margin += 5;
         }
-        System.out.println(gestureNames.length);
     }
 
     private Bitmap getBitMap(String gName) {
+        // TODO: import all of the cartoon gesture samples, and grab them based on the name
+        //       called in this function
         InputStream rawFile = getResources().openRawResource(R.raw.wave);
         return BitmapFactory.decodeStream(rawFile);
     }
