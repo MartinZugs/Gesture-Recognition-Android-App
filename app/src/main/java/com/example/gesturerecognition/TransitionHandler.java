@@ -20,7 +20,7 @@ public class TransitionHandler {
     }
     private final MainActivity a;
     
-    public void toUpdateGesture() {
+    public void changeGesture() {
 
         // Change the view over to the gesture update page
         a.setContentView(R.layout.update_gestures);
@@ -92,19 +92,6 @@ public class TransitionHandler {
 
     public void changeSettings(View v) {
         a.setContentView(R.layout.settings);
-    }
-
-    /**
-     * Switch over to the page where the user can change the word/phrase they want to say
-     * with each gesture.  Instead of hardcoding each one in, we iterate through each gesture
-     * name in our string resource, and dynamically add text inputs and pictures
-     *
-     * @param v - the view of the button which was pressed
-     */
-
-    public void changeGesture(View v)
-    {
-        a.setContentView(R.layout.update_gestures);
     }
 
     public void changeMain(View v) {

@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void changeGesture(View v)
     {
-        transition.changeGesture(v);
+        transition.changeGesture();
     }
 
     public void changeMain(View v) {
