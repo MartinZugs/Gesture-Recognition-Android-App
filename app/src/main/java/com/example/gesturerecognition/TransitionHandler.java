@@ -2,6 +2,7 @@ package com.example.gesturerecognition;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.constraint.Constraints;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -49,10 +50,12 @@ public class TransitionHandler {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int margin = 0;
 
+        //Constraints constraints = new Constraints(a);
+        //constraints.addView(et, R.layout.update_gestures);
+        //constraints.addView(iv, R.layout.update_gestures);
+
         // Iterate through each gesture name, create and append a new GUI child onto the parent
         for (String gestureName : gestureNames) {
-            // set the new margins
-            lp.setMargins(0, margin, 0, 0);
             // dynamically create the new text and image elements
             et.setText(gestureName);
             et.setId(a.getResources().getIdentifier(gestureName, "id", a.getPackageName()));
@@ -62,7 +65,6 @@ public class TransitionHandler {
             et.setInputType(TYPE_CLASS_TEXT);
             et.setLayoutParams(lp);
 
-            lp.setMargins(10, margin, 0, 0);
             iv.setLayoutParams(lp);
             iv.setImageBitmap(getBitMap(gestureName));
             iv.setAdjustViewBounds(true);
