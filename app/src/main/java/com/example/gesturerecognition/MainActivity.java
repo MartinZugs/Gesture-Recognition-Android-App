@@ -3,6 +3,8 @@ package com.example.gesturerecognition;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,6 +14,7 @@ import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.gesturerecognition.StateMachine.StateMachine;
+
+import java.io.InputStream;
 
 import static android.text.InputType.TYPE_CLASS_TEXT;
 
@@ -132,28 +137,53 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void changeUpdate(View v) {
+        // Change the view over to the gesture update page
         setContentView(R.layout.update_gestures);
+        // Gather the static array containing all of the gesture names
         String[] gestureNames = getResources().getStringArray(R.array.gestures);
+        // Get the container in which we will be placing all of the children
         LinearLayout LL = findViewById(R.id.LL);
+        // Create a text input element and an image element for each gesture GUI element
         EditText et = new EditText(this);
         ImageView iv = new ImageView(this);
-        //TODO: iterate through each string and create a new thingy
-        for(int i = 0; i < gestureNames.length; i++) {
-            et.setText(gestureNames[i]);
+        // create a layout parameter to dynamically change the margin with each addition of an element
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int margin = 0;
+        // Iterate through each gesture name, create and append a new GUI child onto the parent
+        for (String gestureName : gestureNames) {
+            // set the new margins
+            lp.setMargins(0, margin, 0, 0);
+            // dynamically create the new text and image elements
+            et.setText(gestureName);
             et.setWidth(600);
             et.setHeight(150);
+            et.setTextSize(TypedValue.COMPLEX_UNIT_PX, 60);
             et.setInputType(TYPE_CLASS_TEXT);
-            iv.setImageAlpha(R.raw.wave);
-            iv.setMaxWidth(150);
-            iv.setMaxHeight(150);
+            et.setLayoutParams(lp);
+
+            iv.setLayoutParams(lp);
+            iv.setImageBitmap(getBitMap(gestureName));
+            iv.setAdjustViewBounds(true);
+            iv.setMaxWidth(100);
+            iv.setMaxHeight(100);
+
+            // Add our newly created elements onto the linear layout parent
             LL.addView(et);
             LL.addView(iv);
 
             // re-instantiate the elements to be iterated once more
             et = new EditText(this);
             iv = new ImageView(this);
+
+            // Increment the margin by 160
+            margin += 3;
         }
         System.out.println(gestureNames.length);
+    }
+
+    private Bitmap getBitMap(String gName) {
+        InputStream rawFile = getResources().openRawResource(R.raw.wave);
+        return BitmapFactory.decodeStream(rawFile);
     }
 
     public void changeMain(View v) {
