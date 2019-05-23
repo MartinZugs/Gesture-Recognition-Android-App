@@ -5,12 +5,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.gesturerecognition.Database.DatabaseHelper;
 import com.example.gesturerecognition.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // A transition handler to deal with the complexities of switching between pages
     // and dynamically adding, subtracting, or saving values
     private TransitionHandler transition;
+    private DatabaseHelper db;
 
     // isOn toggles whether the user wants to read their data currently or not.
     // Triggered by a button push
@@ -33,8 +34,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         // Instantiate the StateMachine and the Transition handler
-        sm = new StateMachine(this);
-        transition = new TransitionHandler(this);
+        db = new DatabaseHelper(this);
+        sm = new StateMachine(this, db);
+        transition = new TransitionHandler(this, db);
 
         // Instantiate and register each sensor variable to each of it's
         // corresponding hardware sensors

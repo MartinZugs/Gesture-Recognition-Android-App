@@ -4,10 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.gesturerecognition.Database.DatabaseHelper;
 
 import java.io.InputStream;
 
@@ -15,10 +16,12 @@ import static android.text.InputType.TYPE_CLASS_TEXT;
 
 public class TransitionHandler {
     
-    TransitionHandler(MainActivity a) {
+    TransitionHandler(MainActivity a, DatabaseHelper db) {
         this.a = a;
+        this.db = db;
     }
     private final MainActivity a;
+    private final DatabaseHelper db;
     
     void changeGesture() {
 
@@ -27,6 +30,9 @@ public class TransitionHandler {
 
         // Gather the static array containing all of the gesture names
         String[] gestureNames = a.getResources().getStringArray(R.array.gestures);
+        db.insertNames(gestureNames);
+        String[] names = db.getNames();
+        for(String name : names) System.out.println(name);
 
         // Get the container in which we will be placing all of the children
         LinearLayout LL = a.findViewById(R.id.LL);

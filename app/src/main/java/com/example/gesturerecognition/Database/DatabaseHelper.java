@@ -2,10 +2,13 @@ package com.example.gesturerecognition.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.gesturerecognition.R;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -17,8 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private SQLiteDatabase db;
     private Context c;
 
-    public DatabaseHelper(Context context, String initialDB) {
-        super(context, initialDB, null, 1);
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, 1);
         this.c = context;
         this.db = getWritableDatabase();
     }
@@ -39,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Insert a new data point to the current database
+     * Iterate through the new names and add them to the database
      *
      * @param names - The array of names to be written over the current names in the database
      * @return boolean - Determines if the insertion succeeded or not
@@ -47,20 +50,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertNames(String[] names) {
         String[] gestureNames = c.getResources().getStringArray(R.array.gestures);
         if(gestureNames.length != names.length) return false;
-        ContentValues contentValues = new ContentValues();
+        ContentValues contentValues;
         for(int i = 0; i < names.length; i++) {
+            contentValues = new ContentValues();
             contentValues.put(GESTURES, gestureNames[i]);
+            contentValues.put(WORDS, names[i]);
+            if(db.insert(TABLE_NAME, null, contentValues) == -1) return false;
         }
-        /*
-        long result = db.insert(MAIN_TABLE_NAME, null, contentValues);
-        if(result == -1) return false;
-        else return true;
-        */
         return true;
     }
 
     public String[] getNames() {
-        String[] names = {"s"};
-        return names;
+        ArrayList<String> names = new ArrayList<>();
+        Cursor cursor = this.db.rawQuery(
+                "SELECT " + WORDS + " FROM " + TABLE_NAME, null);
+        int i = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                names.add(cursor.getString(i));
+                i++;
+                // get  the  data into array,or class variable
+            } while (cursor.moveToNext());
+        }
+        return (String[]) names.toArray();
     }
+
 }

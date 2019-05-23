@@ -1,9 +1,11 @@
 package com.example.gesturerecognition.StateMachine;
 
+import com.example.gesturerecognition.Database.DatabaseHelper;
 import com.example.gesturerecognition.MainActivity;
 import com.example.gesturerecognition.Speaker;
 import android.app.Activity;
 import android.content.Context;
+import android.provider.ContactsContract;
 
 public class StateMachine {
 
@@ -11,9 +13,11 @@ public class StateMachine {
 
     private Speaker speaker;
     private MainActivity a;
+    private DatabaseHelper db;
 
-    public StateMachine(MainActivity a) {
+    public StateMachine(MainActivity a, DatabaseHelper db) {
         this.a = a;
+        this.db = db;
         speaker = new Speaker(this.a);
         ONBACK = new onBackState(this);
         ONFRONT = new onFrontState(this);
@@ -36,4 +40,9 @@ public class StateMachine {
     void say(String s) { this.speaker.saySomething(s); }
 
     Context getContext() { return this.a.getApplicationContext(); }
+    String getDataBaseInfo(String info) {
+        String[] names = this.db.getNames();
+        for(String name : names) if(name == info) return name;
+        return null;
+    }
 }
