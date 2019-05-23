@@ -20,7 +20,7 @@ public class TransitionHandler {
     }
     private final MainActivity a;
     
-    public void changeGesture() {
+    void changeGesture() {
 
         // Change the view over to the gesture update page
         a.setContentView(R.layout.update_gestures);
@@ -85,16 +85,20 @@ public class TransitionHandler {
         return BitmapFactory.decodeStream(rawFile);
     }
 
+    void saveGesture() {
+
+    }
+
     // Starting the display code
-    public void changeLogo(View v) {
+    void changeLogo(View v) {
         a.setContentView(R.layout.logo);
     }
 
-    public void changeSettings(View v) {
+    void changeSettings(View v) {
         a.setContentView(R.layout.settings);
     }
 
-    public void changeMain(View v) {
+    void changeMain(View v) {
         a.setContentView(R.layout.activity_main);
     }
 }
