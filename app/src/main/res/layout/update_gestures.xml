@@ -20,8 +20,8 @@
 
     <ScrollView
         android:id="@+id/Scroller"
-        android:layout_width="375dp"
-        android:layout_height="400dp"
+        android:layout_width="369dp"
+        android:layout_height="566dp"
         android:layout_marginTop="80dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -32,10 +32,10 @@
             android:id="@+id/LL"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
             <!-- Here is where we dynamically add
                 each element to be shown.
