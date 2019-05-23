@@ -64,15 +64,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<String> names = new ArrayList<>();
         Cursor cursor = this.db.rawQuery(
                 "SELECT " + WORDS + " FROM " + TABLE_NAME, null);
-        int i = 0;
         if (cursor.moveToFirst()) {
             do {
-                names.add(cursor.getString(i));
-                i++;
+                names.add(cursor.getString(cursor.getColumnIndex(WORDS)));
                 // get  the  data into array,or class variable
             } while (cursor.moveToNext());
         }
-        return (String[]) names.toArray();
+        String[] returnNames = new String[names.size()];
+        for(int i = 0; i < names.size(); i++) {
+            returnNames[i] = names.get(i);
+        }
+        return returnNames;
     }
-
 }
