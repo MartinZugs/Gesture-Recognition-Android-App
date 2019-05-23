@@ -126,10 +126,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      *
      * @param v - the view of the button which was pressed
      */
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void toUpdateGesture(View v) {
-        transition.toUpdateGesture();
-    }
 
     public void changeMain(View v) {
         setContentView(R.layout.activity_main);
