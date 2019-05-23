@@ -36,9 +36,9 @@
         android:layout_width="350dp"
         android:layout_height="75dp"
         android:layout_marginTop="200dp"
-        android:onClick="toUpdateGesture"
-        android:textSize="20sp"
+        android:onClick="changeGesture"
         android:text="@string/change_gesture"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

@@ -112,27 +112,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     // Starting the display code
     public void changeLogo(View v) {
-        setContentView(R.layout.logo);
+        transition.changeLogo(v);
     }
 
     public void changeSettings(View v) {
-        setContentView(R.layout.settings);
+        transition.changeSettings(v);
     }
 
-    /**
-     * Switch over to the page where the user can change the word/phrase they want to say
-     * with each gesture.  Instead of hardcoding each one in, we iterate through each gesture
-     * name in our string resource, and dynamically add text inputs and pictures
-     *
-     * @param v - the view of the button which was pressed
-     */
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void toUpdateGesture(View v) {
-        transition.toUpdateGesture();
+    public void changeGesture(View v)
+    {
+        transition.changeGesture(v);
     }
 
     public void changeMain(View v) {
-        setContentView(R.layout.activity_main);
+        transition.changeMain(v);
         Button b = findViewById(R.id.OnOff);
         if(!isOn) b.setText(R.string.off);
     }
