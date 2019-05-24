@@ -101,8 +101,14 @@ public class TransitionHandler {
         LinearLayout ll = a.findViewById(R.id.LL);
         ArrayList<EditText> editTexts = new ArrayList<>();
         for( int i = 0; i < ll.getChildCount(); i++ ) {
-            if (ll.getChildAt(i) instanceof EditText)
-                editTexts.add((EditText) ll.getChildAt(i));
+            if (ll.getChildAt(i) instanceof LinearLayout){
+                LinearLayout child = (LinearLayout) ll.getChildAt(i);
+                for( int j = 0; j < child.getChildCount(); j++) {
+                    if(child.getChildAt(j) instanceof EditText) {
+                        editTexts.add((EditText) ll.getChildAt(j));
+                    }
+                }
+            }
         }
         String[] names = new String[editTexts.size()];
         for(int i = 0; i < editTexts.size(); i++) {
@@ -110,6 +116,7 @@ public class TransitionHandler {
             System.out.println(names[i]);
         }
         db.insertNames(names);
+        a.setContentView(R.layout.settings);
     }
 
     // Starting the display code
