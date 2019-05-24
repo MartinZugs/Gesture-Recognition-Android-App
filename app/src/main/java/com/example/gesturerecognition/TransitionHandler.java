@@ -41,7 +41,7 @@ class TransitionHandler {
 
         // Create a text input element and an image element for each gesture GUI element
         EditText et;
-        WebView wv;
+        GifWebView gv;
 
         // create a layout parameter to dynamically change the margin with each addition of an element
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -59,16 +59,23 @@ class TransitionHandler {
             et.setInputType(TYPE_CLASS_TEXT);
             et.setLayoutParams(lp);
 
+
             lp.setMargins(10, margin,0,0);
-            wv = getHTML(gests[i]);
-            wv.setLayoutParams(lp);
-            wv.setMinimumWidth(150);
-            wv.setMinimumHeight(150);
+            InputStream stream = null;
+            try {
+                stream = a.getAssets().open("gif");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            gv = new GifWebView(a, "file:///android_asset/" + gests[i] + ".gif");
+            gv.setLayoutParams(lp);
+            gv.setMinimumWidth(100);
+            gv.setMinimumHeight(100);
 
             // Add our newly created elements onto the linear layout parent then add that to
             // the xml layout
             container.addView(et);
-            container.addView(wv);
+            container.addView(gv);
             LL.addView(container);
 
             // re-instantiate the elements to be iterated once more
@@ -102,6 +109,7 @@ class TransitionHandler {
             raw.close();
         }
     catch (Exception e) { e.printStackTrace(); }
+        System.out.println("STRINGSOURCE: " + stream.toString());
         return stream.toString();
     }
 
