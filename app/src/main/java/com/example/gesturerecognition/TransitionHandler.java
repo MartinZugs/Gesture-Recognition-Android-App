@@ -85,7 +85,7 @@ public class TransitionHandler {
     private Bitmap getBitMap(String gName) {
         // TODO: import all of the cartoon gesture samples, and grab them based on the name
         //       called in this function
-        InputStream rawFile = a.getResources().openRawResource(R.raw.tenor);
+        /*InputStream rawFile = a.getResources().openRawResource(R.raw.tenor);
         return BitmapFactory.decodeStream(rawFile);
         InputStream stream = null;
         try {
@@ -93,7 +93,8 @@ public class TransitionHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        GifWebView view = new GifWebView(this, "file:///android_asset    /piggy.gif");
+        GifWebView view = new GifWebView(this, "file:///android_asset    /piggy.gif");*/
+        return null;
     }
 
     void saveGesture() {
