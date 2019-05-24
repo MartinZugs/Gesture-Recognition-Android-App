@@ -81,7 +81,6 @@ class TransitionHandler {
     private WebView getHTML(String gName) {
         // TODO: import all of the cartoon gesture samples, and grab them based on the name
         //       called in this function
-        */
         WebView view = new WebView(a);
         System.out.println("RAW: " + R.raw.upright_x);
         int resID = getResId(gName, R.raw.class);
