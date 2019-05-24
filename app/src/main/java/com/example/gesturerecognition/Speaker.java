@@ -12,7 +12,9 @@ public class Speaker {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    t1.setLanguage(Locale.ENGLISH);
+                    t1.setLanguage(Locale.US);
+                    t1.setSpeechRate(0.93f);
+                    t1.setPitch(0.93f);
                 }
             }
         });
