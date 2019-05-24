@@ -81,9 +81,6 @@ class TransitionHandler {
     private WebView getHTML(String gName) {
         // TODO: import all of the cartoon gesture samples, and grab them based on the name
         //       called in this function
-        /*
-        InputStream rawFile = a.getResources().openRawResource(R.raw.tenor);
-        return BitmapFactory.decodeStream(rawFile);
         */
         WebView view = new WebView(a);
         System.out.println("RAW: " + R.raw.upright_x);
@@ -110,7 +107,6 @@ class TransitionHandler {
     }
 
     public static int getResId(String resName, Class<?> c) {
-
         try {
             Field idField = c.getDeclaredField(resName);
             return idField.getInt(idField);

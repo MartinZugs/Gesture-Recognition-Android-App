@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // Triggered by a button push
     private boolean isOn = true;
 
+    private boolean wasX = false;
+    private boolean wasY = false;
+    private boolean wasZ = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Typical android setup stuff
@@ -104,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Button b = findViewById(R.id.OnOff);
         if(isOn) {
             isOn = false;
+            wasZ = false;
+            wasY = false;
+            wasX = false;
             b.setText(R.string.off);
         }
         else {
@@ -143,14 +150,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 3 || ax < -3) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az))) {
+        if ((ax > 3 || ax < -3) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az)) && wasX == false) {
             sm.x_move();
+            wasX = true;
+            wasY = false;
+            wasZ = false;
         }
-        else if ((az > 3 || az < -3) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax))) {
+        else if ((az > 3 || az < -3) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax)) && wasZ == false) {
             sm.z_move();
+            wasZ = true;
+            wasY = false;
+            wasX = false;
         }
-        else if ((ay > 3 || ay < -3) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az))) {
+        else if ((ay > 3 || ay < -3) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az)) && wasY == false) {
             sm.y_move();
+            wasY = true;
+            wasX = false;
+            wasZ = false;
         }
     }
 
