@@ -105,11 +105,12 @@ public class TransitionHandler {
                 LinearLayout child = (LinearLayout) ll.getChildAt(i);
                 for( int j = 0; j < child.getChildCount(); j++) {
                     if(child.getChildAt(j) instanceof EditText) {
-                        editTexts.add((EditText) ll.getChildAt(j));
+                        editTexts.add((EditText) child.getChildAt(j));
                     }
                 }
             }
         }
+        //System.out.println(editTexts.size());
         String[] names = new String[editTexts.size()];
         for(int i = 0; i < editTexts.size(); i++) {
             names[i] = editTexts.get(i).getText().toString();

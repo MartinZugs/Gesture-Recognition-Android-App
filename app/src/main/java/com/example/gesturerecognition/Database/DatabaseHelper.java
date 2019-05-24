@@ -19,13 +19,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
     private Context c;
-    private String[] gestureNames;
-    private String[] gestureWords;
+    private static String[] gestureNames;
+    private static String[] gestureWords;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         this.c = context;
         this.db = getWritableDatabase();
+
     }
 
     @Override
@@ -60,10 +61,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return boolean - Determines if the insertion succeeded or not
      */
     public boolean insertNames(String[] names) {
-        if(gestureNames.length != names.length) return false;
+        gestureNames = c.getResources().getStringArray(R.array.gestures);
+        gestureWords = c.getResources().getStringArray(R.array.names);
+
+        db.delete(TABLE_NAME, null, null);
+
         ContentValues contentValues = new ContentValues();
         for(int i = 0; i < names.length; i++) {
-            contentValues.put(WORDS, gestureWords[i]);
+            contentValues.put(WORDS, names[i]);
+            contentValues.put(GESTURES, gestureNames[i]);
             if(db.insert(TABLE_NAME, null, contentValues) == -1) return false;
         }
         return true;
