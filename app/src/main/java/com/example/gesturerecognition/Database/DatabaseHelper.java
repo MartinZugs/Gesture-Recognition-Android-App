@@ -62,7 +62,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public boolean insertNames(String[] names) {
         gestureNames = c.getResources().getStringArray(R.array.gestures);
-        gestureWords = c.getResources().getStringArray(R.array.names);
 
         db.delete(TABLE_NAME, null, null);
 
