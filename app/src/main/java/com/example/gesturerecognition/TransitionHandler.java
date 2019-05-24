@@ -1,22 +1,20 @@
 package com.example.gesturerecognition;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.constraint.Constraints;
 import android.util.TypedValue;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.example.gesturerecognition.Database.DatabaseHelper;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static android.text.InputType.TYPE_CLASS_TEXT;
 
-public class TransitionHandler {
+class TransitionHandler {
     
     TransitionHandler(MainActivity a, DatabaseHelper db) {
         this.a = a;
@@ -32,6 +30,7 @@ public class TransitionHandler {
 
         // Gather the static array containing all of the gesture names
         String[] gestureNames = db.getNames();
+        String[] gests = db.getGestures();
 
         // Get the container in which we will be placing all of the children
         LinearLayout LL = a.findViewById(R.id.LL);
@@ -41,19 +40,19 @@ public class TransitionHandler {
         container.setOrientation(LinearLayout.HORIZONTAL);
 
         // Create a text input element and an image element for each gesture GUI element
-        EditText et = new EditText(a);
-        ImageView iv = new ImageView(a);
+        EditText et;
+        WebView wv;
 
         // create a layout parameter to dynamically change the margin with each addition of an element
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int margin = 0;
 
         // Iterate through each gesture name, create and append a new GUI child onto the parent
-        for (String gestureName : gestureNames) {
+        for (int i = 0; i < gestureNames.length; i++) {
             // dynamically create the new text and image elements
             lp.setMargins(0,margin,0,0);
-            et.setText(gestureName);
-            et.setId(a.getResources().getIdentifier(gestureName, "id", a.getPackageName()));
+            et = new EditText(a);
+            et.setText(gestureNames[i]);
             et.setWidth(650);
             et.setHeight(150);
             et.setTextSize(TypedValue.COMPLEX_UNIT_PX, 60);
@@ -61,40 +60,59 @@ public class TransitionHandler {
             et.setLayoutParams(lp);
 
             lp.setMargins(10, margin,0,0);
-            iv.setLayoutParams(lp);
-            iv.setImageBitmap(getBitMap(gestureName));
-            iv.setAdjustViewBounds(true);
-            iv.setMaxWidth(150);
-            iv.setMaxHeight(150);
+            wv = getHTML(gests[i]);
+            wv.setLayoutParams(lp);
+            wv.setMinimumWidth(150);
+            wv.setMinimumHeight(150);
 
             // Add our newly created elements onto the linear layout parent then add that to
             // the xml layout
             container.addView(et);
-            container.addView(iv);
+            container.addView(wv);
             LL.addView(container);
 
             // re-instantiate the elements to be iterated once more
-            et = new EditText(a);
-            iv = new ImageView(a);
             container = new LinearLayout(a);
 
             margin += 5;
         }
     }
 
-    private Bitmap getBitMap(String gName) {
+    private WebView getHTML(String gName) {
         // TODO: import all of the cartoon gesture samples, and grab them based on the name
         //       called in this function
-        /*InputStream rawFile = a.getResources().openRawResource(R.raw.tenor);
-        return BitmapFactory.decodeStream(rawFile);
-        InputStream stream = null;
+        WebView view = new WebView(a);
+        System.out.println("RAW: " + R.raw.upright_x);
+        int resID = getResId(gName, R.raw.class);
+        System.out.println("POST: " + resID + " " + gName);
+        view.loadData(readTextFromResource(resID), "text/html", "utf-8");
+        return view;
+    }
+
+    private String readTextFromResource(int resourceID) {
+        InputStream raw = a.getResources().openRawResource(resourceID);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        int i;
         try {
-            stream = a.getAssets().open("tenor.gif");
+            i = raw.read();
+            while (i != -1) {
+                stream.write(i);
+                i = raw.read();
+            }
+            raw.close();
+        }
+    catch (Exception e) { e.printStackTrace(); }
+        return stream.toString();
+    }
+
+    public static int getResId(String resName, Class<?> c) {
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        GifWebView view = new GifWebView(this, "file:///android_asset    /piggy.gif");*/
-        return null;
     }
 
     void saveGesture() {
