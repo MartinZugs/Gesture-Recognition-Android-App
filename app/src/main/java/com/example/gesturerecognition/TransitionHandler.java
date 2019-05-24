@@ -100,9 +100,10 @@ public class TransitionHandler {
     void saveGesture() {
         LinearLayout ll = a.findViewById(R.id.LL);
         ArrayList<EditText> editTexts = new ArrayList<>();
-        for( int i = 0; i < ll.getChildCount(); i++ )
-            if( ll.getChildAt( i ) instanceof EditText )
-                editTexts.add( (EditText)ll.getChildAt( i ) );
+        for( int i = 0; i < ll.getChildCount(); i++ ) {
+            if (ll.getChildAt(i) instanceof EditText)
+                editTexts.add((EditText) ll.getChildAt(i));
+        }
         String[] names = new String[editTexts.size()];
         for(int i = 0; i < editTexts.size(); i++) {
             names[i] = editTexts.get(i).getText().toString();
