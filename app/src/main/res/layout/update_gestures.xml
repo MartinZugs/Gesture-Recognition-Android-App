@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <ConstraintLayout
             android:id="@+id/LL"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 each element to be shown.
                 see MainActivity.changeUpdate-->
 
-        </LinearLayout>
+        </ConstraintLayout>
 
     </ScrollView>
 
