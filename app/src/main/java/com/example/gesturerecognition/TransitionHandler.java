@@ -57,6 +57,7 @@ public class TransitionHandler {
         // Iterate through each gesture name, create and append a new GUI child onto the parent
         for (String gestureName : gestureNames) {
             // dynamically create the new text and image elements
+            lp.setMargins(0,margin,0,0);
             et.setText(gestureName);
             et.setId(a.getResources().getIdentifier(gestureName, "id", a.getPackageName()));
             et.setWidth(650);
@@ -65,6 +66,7 @@ public class TransitionHandler {
             et.setInputType(TYPE_CLASS_TEXT);
             et.setLayoutParams(lp);
 
+            lp.setMargins(10, margin,0,0);
             iv.setLayoutParams(lp);
             iv.setImageBitmap(getBitMap(gestureName));
             iv.setAdjustViewBounds(true);
