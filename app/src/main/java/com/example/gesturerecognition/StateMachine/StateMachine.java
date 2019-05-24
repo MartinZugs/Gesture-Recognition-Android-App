@@ -41,8 +41,11 @@ public class StateMachine {
         String[] gestures = this.db.getGestures();
         String[] names = this.db.getNames();
 
-        for(int i = 0; i < names.length; i++)
-            if(s == gestures[i]) speaker.saySomething(names[i]);
+        for(int i = 0; i < names.length; i++) {
+            if (s.equals(gestures[i])) {
+                speaker.saySomething(names[i]);
+            }
+        }
     }
 
     Context getContext() { return this.a.getApplicationContext(); }
