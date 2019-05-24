@@ -64,8 +64,8 @@ public class TransitionHandler {
             iv.setLayoutParams(lp);
             iv.setImageBitmap(getBitMap(gestureName));
             iv.setAdjustViewBounds(true);
-            iv.setMaxWidth(100);
-            iv.setMaxHeight(100);
+            iv.setMaxWidth(150);
+            iv.setMaxHeight(150);
 
             // Add our newly created elements onto the linear layout parent then add that to
             // the xml layout
@@ -85,8 +85,15 @@ public class TransitionHandler {
     private Bitmap getBitMap(String gName) {
         // TODO: import all of the cartoon gesture samples, and grab them based on the name
         //       called in this function
-        InputStream rawFile = a.getResources().openRawResource(R.raw.wave);
+        InputStream rawFile = a.getResources().openRawResource(R.raw.tenor);
         return BitmapFactory.decodeStream(rawFile);
+        InputStream stream = null;
+        try {
+            stream = a.getAssets().open("tenor.gif");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        GifWebView view = new GifWebView(this, "file:///android_asset    /piggy.gif");
     }
 
     void saveGesture() {
