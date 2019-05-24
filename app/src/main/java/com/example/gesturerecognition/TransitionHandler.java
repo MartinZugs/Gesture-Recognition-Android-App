@@ -108,7 +108,7 @@ public class TransitionHandler {
             names[i] = editTexts.get(i).getText().toString();
             System.out.println(names[i]);
         }
-
+        db.insertNames(names);
     }
 
     // Starting the display code
