@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     // isOn toggles whether the user wants to read their data currently or not.
     // Triggered by a button push
-    private boolean isOn = true;
+    private boolean isOn = false;
 
+    // Boolean values that stop it from repeating itself
     private boolean wasX = false;
     private boolean wasY = false;
     private boolean wasZ = false;
@@ -150,19 +151,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 3 || ax < -3) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az)) && wasX == false) {
+        if ((ax > 5 || ax < -5) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az)) && wasX == false) {
             sm.x_move();
             wasX = true;
             wasY = false;
             wasZ = false;
         }
-        else if ((az > 3 || az < -3) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax)) && wasZ == false) {
+        else if ((az > 5 || az < -5) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax)) && wasZ == false) {
             sm.z_move();
             wasZ = true;
             wasY = false;
             wasX = false;
         }
-        else if ((ay > 3 || ay < -3) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az)) && wasY == false) {
+        else if ((ay > 5 || ay < -5) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az)) && wasY == false) {
             sm.y_move();
             wasY = true;
             wasX = false;
