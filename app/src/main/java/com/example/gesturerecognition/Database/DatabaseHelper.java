@@ -90,4 +90,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return returnNames;
     }
+
+    public String[] getGesture() {
+        ArrayList<String> gestures = new ArrayList<>();
+        Cursor cursor = this.db.rawQuery(
+                "SELECT " + GESTURES + " FROM " + TABLE_NAME, null);
+        if (cursor.moveToFirst()) {
+            do {
+                gestures.add(cursor.getString(cursor.getColumnIndex(WORDS)));
+                // get  the  data into array,or class variable
+            } while (cursor.moveToNext());
+        }
+        String[] returnGestures = new String[gestures.size()];
+        for(int i = 0; i < gestures.size(); i++) {
+            returnGestures[i] = gestures.get(i);
+        }
+        return returnGestures;
+    }
 }
