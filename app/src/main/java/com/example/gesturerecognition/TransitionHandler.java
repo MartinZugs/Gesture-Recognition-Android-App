@@ -32,10 +32,6 @@ public class TransitionHandler {
 
         // Gather the static array containing all of the gesture names
         String[] gestureNames = db.getNames();
-        // a.getResources().getStringArray(R.array.gestures);
-        //db.insertNames(gestureNames);
-        //String[] names = db.getNames();
-        //for(String name : names) System.out.println(name);
 
         // Get the container in which we will be placing all of the children
         LinearLayout LL = a.findViewById(R.id.LL);
@@ -51,10 +47,6 @@ public class TransitionHandler {
         // create a layout parameter to dynamically change the margin with each addition of an element
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int margin = 0;
-
-        //Constraints constraints = new Constraints(a);
-        //constraints.addView(et, R.layout.update_gestures);
-        //constraints.addView(iv, R.layout.update_gestures);
 
         // Iterate through each gesture name, create and append a new GUI child onto the parent
         for (String gestureName : gestureNames) {

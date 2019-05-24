@@ -38,8 +38,11 @@ public class StateMachine {
 
     public boolean isPlaying() { return this.speaker.isPlaying(); }
     void say(String s) {
+        String[] gestures = this.db.getGestures();
         String[] names = this.db.getNames();
-        for(String name : names) if(name == s) speaker.saySomething(name);
+
+        for(int i = 0; i < names.length; i++)
+            if(s == gestures[i]) speaker.saySomething(names[i]);
     }
 
     Context getContext() { return this.a.getApplicationContext(); }
