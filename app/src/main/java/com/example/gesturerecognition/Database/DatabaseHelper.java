@@ -19,6 +19,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
     private Context c;
+    private String[] gestureNames;
+    private String[] gestureWords;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -32,6 +34,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // to hold the words that the gestures represent
         db.execSQL("create table " + TABLE_NAME +
                 "(" + GESTURES + " STRING, " + WORDS + " STRING)");
+
+        ContentValues contentValues = new ContentValues();
+        gestureNames = c.getResources().getStringArray(R.array.gestures);
+        gestureWords = c.getResources().getStringArray(R.array.names);
+
+        for(int x = 0; x < gestureNames.length; x++) {
+            contentValues.put(GESTURES, gestureNames[x]);
+            contentValues.put(WORDS, gestureWords[x]);
+            if(db.insert(TABLE_NAME, null, contentValues) == -1) return;
+        }
     }
 
     @Override
@@ -48,14 +60,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return boolean - Determines if the insertion succeeded or not
      */
     public boolean insertNames(String[] names) {
-        String[] gestureNames = c.getResources().getStringArray(R.array.gestures);
         if(gestureNames.length != names.length) return false;
         ContentValues contentValues;
         for(int i = 0; i < names.length; i++) {
-            contentValues = new ContentValues();
-            contentValues.put(GESTURES, gestureNames[i]);
-            contentValues.put(WORDS, names[i]);
-            if(db.insert(TABLE_NAME, null, contentValues) == -1) return false;
+
         }
         return true;
     }
