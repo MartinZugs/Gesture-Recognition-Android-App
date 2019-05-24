@@ -102,7 +102,7 @@ public class TransitionHandler {
                 }
             }
         }
-        //System.out.println(editTexts.size());
+
         String[] names = new String[editTexts.size()];
         for(int i = 0; i < editTexts.size(); i++) {
             names[i] = editTexts.get(i).getText().toString();
