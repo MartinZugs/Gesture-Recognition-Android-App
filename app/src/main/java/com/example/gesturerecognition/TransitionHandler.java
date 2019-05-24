@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.example.gesturerecognition.Database.DatabaseHelper;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import static android.text.InputType.TYPE_CLASS_TEXT;
 
@@ -30,10 +31,11 @@ public class TransitionHandler {
         a.setContentView(R.layout.update_gestures);
 
         // Gather the static array containing all of the gesture names
-        String[] gestureNames = a.getResources().getStringArray(R.array.gestures);
-        db.insertNames(gestureNames);
-        String[] names = db.getNames();
-        for(String name : names) System.out.println(name);
+        String[] gestureNames = db.getNames();
+        // a.getResources().getStringArray(R.array.gestures);
+        //db.insertNames(gestureNames);
+        //String[] names = db.getNames();
+        //for(String name : names) System.out.println(name);
 
         // Get the container in which we will be placing all of the children
         LinearLayout LL = a.findViewById(R.id.LL);
@@ -96,7 +98,17 @@ public class TransitionHandler {
     }
 
     void saveGesture() {
-
+        LinearLayout ll = a.findViewById(R.id.LL);
+        ArrayList<EditText> editTexts = new ArrayList<>();
+        for( int i = 0; i < ll.getChildCount(); i++ )
+            if( ll.getChildAt( i ) instanceof EditText )
+                editTexts.add( (EditText)ll.getChildAt( i ) );
+        String[] names = new String[editTexts.size()];
+        for(int i = 0; i < editTexts.size(); i++) {
+            names[i] = editTexts.get(i).getText().toString();
+            System.out.println(names[i]);
+        }
+        db.insertNames(names);
     }
 
     // Starting the display code
