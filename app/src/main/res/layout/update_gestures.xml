@@ -17,8 +17,8 @@
 
     <ScrollView
         android:id="@+id/Scroller"
-        android:layout_width="383dp"
-        android:layout_height="406dp"
+        android:layout_width="388dp"
+        android:layout_height="586dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -27,10 +27,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294">
+        app:layout_constraintVertical_bias="0.496">
 
         <LinearLayout
             android:id="@+id/LL"
