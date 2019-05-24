@@ -61,9 +61,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public boolean insertNames(String[] names) {
         if(gestureNames.length != names.length) return false;
-        ContentValues contentValues;
+        ContentValues contentValues = new ContentValues();
         for(int i = 0; i < names.length; i++) {
-
+            contentValues.put(WORDS, gestureWords[i]);
+            if(db.insert(TABLE_NAME, null, contentValues) == -1) return false;
         }
         return true;
     }
