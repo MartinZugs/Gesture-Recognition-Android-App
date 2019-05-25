@@ -1,15 +1,13 @@
 package com.example.gesturerecognition;
 
+import android.graphics.Rect;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.TypedValue;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import com.example.gesturerecognition.Database.DatabaseHelper;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static android.text.InputType.TYPE_CLASS_TEXT;
@@ -23,6 +21,7 @@ class TransitionHandler {
     private final MainActivity a;
     private final DatabaseHelper db;
     
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     void changeGesture() {
 
         // Change the view over to the gesture update page
@@ -61,16 +60,9 @@ class TransitionHandler {
 
 
             lp.setMargins(10, margin,0,0);
-            InputStream stream = null;
-            try {
-                stream = a.getAssets().open("gif");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             gv = new GifWebView(a, "file:///android_asset/" + gests[i] + ".gif");
             gv.setLayoutParams(lp);
-            gv.setMinimumWidth(100);
-            gv.setMinimumHeight(100);
+            gv.setPadding(-20,0,0,0);
 
             // Add our newly created elements onto the linear layout parent then add that to
             // the xml layout
@@ -82,44 +74,6 @@ class TransitionHandler {
             container = new LinearLayout(a);
 
             margin += 5;
-        }
-    }
-
-    private WebView getHTML(String gName) {
-        // TODO: import all of the cartoon gesture samples, and grab them based on the name
-        //       called in this function
-        WebView view = new WebView(a);
-        System.out.println("RAW: " + R.raw.upright_x);
-        int resID = getResId(gName, R.raw.class);
-        System.out.println("POST: " + resID + " " + gName);
-        view.loadData(readTextFromResource(resID), "text/html", "utf-8");
-        return view;
-    }
-
-    private String readTextFromResource(int resourceID) {
-        InputStream raw = a.getResources().openRawResource(resourceID);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        int i;
-        try {
-            i = raw.read();
-            while (i != -1) {
-                stream.write(i);
-                i = raw.read();
-            }
-            raw.close();
-        }
-    catch (Exception e) { e.printStackTrace(); }
-        System.out.println("STRINGSOURCE: " + stream.toString());
-        return stream.toString();
-    }
-
-    public static int getResId(String resName, Class<?> c) {
-        try {
-            Field idField = c.getDeclaredField(resName);
-            return idField.getInt(idField);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
         }
     }
 
