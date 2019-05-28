@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Gesture Recognition</string>
+    <string name="app_name">TalkMotion</string>
     <string name="off">Off</string>
     <string name="on">On</string>
+
     <string-array name="gestures">
         <item>upright_x</item>
         <item>upright_y</item>

@@ -1,11 +1,9 @@
-package com.example.gesturerecognition.StateMachine;
+package com.jkotheimer.TalkMotion.StateMachine;
 
-import com.example.gesturerecognition.Database.DatabaseHelper;
-import com.example.gesturerecognition.MainActivity;
-import com.example.gesturerecognition.Speaker;
-import android.app.Activity;
+import com.jkotheimer.TalkMotion.Database.DatabaseHelper;
+import com.jkotheimer.TalkMotion.MainActivity;
+import com.jkotheimer.TalkMotion.Speaker;
 import android.content.Context;
-import android.provider.ContactsContract;
 
 public class StateMachine {
 

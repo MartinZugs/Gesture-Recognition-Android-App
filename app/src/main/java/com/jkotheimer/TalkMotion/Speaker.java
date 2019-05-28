@@ -1,4 +1,4 @@
-package com.example.gesturerecognition;
+package com.jkotheimer.TalkMotion;
 import android.speech.tts.TextToSpeech;
 import android.app.Activity;
 import java.util.Locale;

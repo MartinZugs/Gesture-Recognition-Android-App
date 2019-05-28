@@ -1,18 +1,10 @@
-package com.example.gesturerecognition.StateMachine;
-
-import android.content.res.Resources;
-
-import com.example.gesturerecognition.R;
+package com.jkotheimer.TalkMotion.StateMachine;
 
 public class onBackState implements State {
 
-    onBackState(final StateMachine sm) {
-        this.sm = sm;
-        resources = sm.getContext().getResources();
-    }
+    onBackState(final StateMachine sm) { this.sm = sm; }
 
     private final StateMachine sm;
-    private final Resources resources;
 
     @Override
     public void x_move() {

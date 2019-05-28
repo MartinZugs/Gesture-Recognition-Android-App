@@ -1,13 +1,13 @@
-package com.example.gesturerecognition;
+package com.jkotheimer.TalkMotion;
 
-import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import com.example.gesturerecognition.Database.DatabaseHelper;
+import com.jkotheimer.TalkMotion.R;
+import com.jkotheimer.TalkMotion.Database.DatabaseHelper;
 import java.util.ArrayList;
 
 import static android.text.InputType.TYPE_CLASS_TEXT;

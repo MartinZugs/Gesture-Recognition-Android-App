@@ -1,4 +1,4 @@
-package com.example.gesturerecognition;
+package com.jkotheimer.TalkMotion;
 
 import android.content.Context;
 import android.webkit.WebView;

@@ -1,17 +1,19 @@
-package com.example.gesturerecognition;
+package com.jkotheimer.TalkMotion;
 
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.gesturerecognition.Database.DatabaseHelper;
-import com.example.gesturerecognition.StateMachine.StateMachine;
+import com.jkotheimer.TalkMotion.Database.DatabaseHelper;
+import com.jkotheimer.TalkMotion.StateMachine.StateMachine;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         transition.changeSettings(v);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void changeGesture(View v)
     {
         transition.changeGesture();

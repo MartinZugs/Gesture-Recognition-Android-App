@@ -1,4 +1,4 @@
-package com.example.gesturerecognition.StateMachine;
+package com.jkotheimer.TalkMotion.StateMachine;
 
 public interface State {
     void x_move();

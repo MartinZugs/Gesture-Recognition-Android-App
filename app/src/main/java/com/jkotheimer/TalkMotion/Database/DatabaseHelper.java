@@ -1,4 +1,4 @@
-package com.example.gesturerecognition.Database;
+package com.jkotheimer.TalkMotion.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.gesturerecognition.R;
+import com.jkotheimer.TalkMotion.R;
 
 import java.util.ArrayList;
 
