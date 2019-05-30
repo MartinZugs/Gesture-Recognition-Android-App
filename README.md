@@ -13,4 +13,34 @@ A simple Android app that allows the user to speak by making gestures with their
 
 ## Developer's Guide
 1. Download and use Android Studio to edit the code.
-2. No further add-ons needed.
+2. Code specs to take note of
+  - MainActivity.java
+    * DatabaseHelper initialized
+    * StateMachine and TransitionHandler initialized with the DatabaseHelper
+    * Linear-Accelerometer and gravity sensors initialized
+      - Each sensor sends an event to onSensorChanged method every few milliseconds
+      - Based on the event type, we do different stuff with the data
+      - For an accelerometer event, we check if one of the values exeeds a certain threshold to trigger a sound
+      - For a gravity sensor event, we check the orientation of the phone and change the state of the state machine accordingly
+    * Event handler methods for each button 
+      - Turn the event listening on or off
+      - Change screens
+      - Save settings
+  - StateMachine.java
+    * Has multiple states initialized
+    * Reads input from MainActivity when a gravity sensor event comes through and changes the current state accordingly.
+    * Reads input from MainActivity when an accelerometer sensor event comes through and triggers the current state's motion function.
+  - State.java
+    * interface for each orientation state.
+    * each state has different implementations of each motion function. For example, the upright state's x-motion function says "Hello".
+  - DatabaseHelper.java
+    * Implements the android built in sqlite helper to store data locally on the phone.
+    * Reads data from the MainActivity when the user is on the changeGesture page and presses save.
+      - Any changes the user made to the text boxes will be saved, and the associated gesture will produce the saved phrase when made.
+  - Speaker.java
+    * Uses the Android text to speech library to convert the inputted phrase into speech
+  - TransitionHandler.java
+    * Sets up all of the UI stuff when changing between screens
+  - GifWebview.java
+    * Implements Android webView library, but loads a gif for the page that allows the user to change the phrase for any given gesture.
+3. No further add-ons needed.
