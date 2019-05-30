@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // A transition handler to deal with the complexities of switching between pages
     // and dynamically adding, subtracting, or saving values
     private TransitionHandler transition;
-    private DatabaseHelper db;
 
     // isOn toggles whether the user wants to read their data currently or not.
     // Triggered by a button push
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         // Instantiate the StateMachine and the Transition handler
-        db = new DatabaseHelper(this);
+        DatabaseHelper db = new DatabaseHelper(this);
         sm = new StateMachine(this, db);
         transition = new TransitionHandler(this, db);
 
@@ -123,9 +122,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     // Starting the display code
-    public void changeLogo(View v) {
-        transition.changeLogo(v);
-    }
+    // public void changeLogo(View v) { transition.changeLogo(v) }
 
     public void changeSettings(View v) {
         transition.changeSettings(v);
@@ -154,19 +151,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     public void checkMotion (final float ax, final float ay, final float az)
     {
-        if ((ax > 5 || ax < -5) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az)) && wasX == false) {
+        if ((ax > 5 || ax < -5) && !(sm.isPlaying()) && ((ax > ay) && (ax > az) || (ax < ay) && (ax <az)) && !wasX) {
             sm.x_move();
             wasX = true;
             wasY = false;
             wasZ = false;
         }
-        else if ((az > 5 || az < -5) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax)) && wasZ == false) {
+        else if ((az > 5 || az < -5) && !(sm.isPlaying()) && ((az > ay) && (az > ax) || (az < ay) && (az <ax)) && !wasZ) {
             sm.z_move();
             wasZ = true;
             wasY = false;
             wasX = false;
         }
-        else if ((ay > 5 || ay < -5) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az)) && wasY == false) {
+        else if ((ay > 5 || ay < -5) && !(sm.isPlaying()) && ((ay > ax) && (ay > az) || (ay < ax) && (ay < az)) && !wasY) {
             sm.y_move();
             wasY = true;
             wasX = false;
